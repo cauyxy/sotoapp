@@ -1,0 +1,26 @@
+{
+  "name": "sotoapp",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "pnpm@10.24.0",
+  "scripts": {
+    "dev": "pnpm --filter @soto/desktop dev",
+    "build": "pnpm --filter @soto/desktop build",
+    "dev:site": "pnpm --filter @soto/site dev",
+    "build:site": "pnpm --filter @soto/site build",
+    "deploy:site": "pnpm --filter @soto/site deploy",
+    "test": "pnpm test:desktop && pnpm test:site && pnpm test:release-scripts",
+    "test:desktop": "pnpm --filter @soto/desktop test",
+    "test:site": "pnpm --filter @soto/site test",
+    "test:release-scripts": "node --test scripts/*.test.mjs",
+    "tauri": "pnpm --filter @soto/desktop tauri",
+    "app:install-canonical": "node scripts/install-canonical-macos-app.mjs",
+    "app:reset-tcc": "node scripts/reset-canonical-tcc.mjs",
+    "build:mac:signed": "node scripts/macos-signed-build.mjs",
+    "publish:update": "node scripts/publish-updater-r2.mjs --wrangler-bin npx"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.1"
+  }
+}

@@ -1,0 +1,50 @@
+[workspace]
+members = [
+  "crates/soto-app",
+  "crates/soto-audio",
+  "crates/soto-core",
+  "crates/soto-hotkey",
+  "crates/soto-injection",
+  "crates/soto-keyboard-hook",
+  "crates/soto-platform",
+  "crates/soto-prompt",
+  "crates/soto-provider",
+  "crates/soto-session",
+  "crates/soto-storage",
+  "crates/soto-tauri",
+  "apps/desktop/src-tauri",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/cauyxy/sotoapp"
+rust-version = "1.90"
+
+[workspace.dependencies]
+anyhow = "1.0"
+arboard = "3.6.1"
+base64 = "0.22"
+block2 = "0.6.2"
+chrono = { version = "0.4", features = ["serde", "clock"] }
+cpal = "0.15.3"
+flate2 = "1.0"
+futures = "0.3"
+objc2 = "0.6.4"
+objc2-app-kit = "0.3.2"
+r2d2 = "0.8"
+r2d2_sqlite = "0.31"
+regex = "1.12"
+reqwest = { version = "0.13.3", default-features = false, features = ["json", "rustls"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri = { version = "2.11.1", features = ["tray-icon"] }
+tempfile = "3.13"
+thiserror = "2.0"
+tokio = { version = "1.52", features = ["macros", "rt-multi-thread", "net", "io-util", "time"] }
+tracing = "0.1"
+url = "2.5"
+uuid = { version = "1.10", features = ["serde", "v4"] }
+windows = "0.61"

@@ -1,0 +1,9 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "capsule-window",
+  "description": "Voice bar capsule webview. Subscribes to soto://voice-runtime broadcasts emitted by the Rust runtime so the overlay can transition between idle/listening/thinking/error. The other commands this webview calls (cancel_active_voice_runtime, get_app_settings) are user-registered via invoke_handler and not ACL-gated. See sotoapp-tauri-2-acl-gotcha memory + decision.md D32.",
+  "windows": ["capsule"],
+  "permissions": [
+    "core:event:default"
+  ]
+}

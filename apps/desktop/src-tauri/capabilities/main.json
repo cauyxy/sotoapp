@@ -1,0 +1,17 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-window",
+  "description": "Main webview chrome and Settings. Grants the destructive window ops the Svelte Fluent chrome buttons need (minimize, toggle-maximize, close), the start-dragging op the titlebar uses, the core:default bundle that covers event subscriptions (onResized, onFocusChanged) plus read-only window queries (isMaximized), and opener URL access for the About repository link.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+    "core:window:allow-start-dragging",
+    "opener:allow-open-url",
+    "opener:allow-default-urls",
+    "updater:default",
+    "process:allow-restart"
+  ]
+}

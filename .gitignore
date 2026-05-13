@@ -1,0 +1,54 @@
+# ─── OS ──────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+desktop.ini
+
+# ─── IDE ─────────────────────────────────────────────────────────────────────
+.idea/
+*.swp
+*.swo
+
+# ─── Environment ─────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── Node / pnpm ─────────────────────────────────────────────────────────────
+node_modules/
+.pnpm-store/
+pnpm-debug.log*
+npm-debug.log*
+*.log
+
+# ─── SvelteKit ───────────────────────────────────────────────────────────────
+.svelte-kit/
+dist/
+build/
+
+# ─── Rust / Cargo ────────────────────────────────────────────────────────────
+target/
+
+# ─── Tauri ───────────────────────────────────────────────────────────────────
+# Tauri generates platform-specific WiX / NSIS / Xcode project files here
+apps/desktop/src-tauri/gen/
+# Packaged app bundles produced by `tauri build`
+*.app
+*.dmg
+*.deb
+*.rpm
+*.AppImage
+*.msi
+*.exe
+
+# ─── Test / Coverage ─────────────────────────────────────────────────────────
+coverage/
+
+# ─── Local tooling ───────────────────────────────────────────────────────────
+.worktrees/
+.claude/
+.superpowers/
+
+# ─── Project-specific ────────────────────────────────────────────────────────
+signing-secrets/
+SotoAPP-Design/

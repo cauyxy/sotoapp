@@ -1,0 +1,27 @@
+[package]
+name = "soto-app"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+chrono.workspace = true
+futures.workspace = true
+reqwest.workspace = true
+serde.workspace = true
+soto-audio = { path = "../soto-audio" }
+soto-core = { path = "../soto-core" }
+soto-injection = { path = "../soto-injection" }
+soto-prompt = { path = "../soto-prompt" }
+soto-provider = { path = "../soto-provider" }
+soto-session = { path = "../soto-session" }
+soto-storage = { path = "../soto-storage" }
+thiserror.workspace = true
+tokio.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio = { workspace = true, features = ["macros", "rt", "rt-multi-thread"] }

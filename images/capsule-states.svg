@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="240" viewBox="0 0 760 240" font-family="ui-sans-serif, -apple-system, system-ui, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FAF6EC"/>
+      <stop offset="100%" stop-color="#EDE3CC"/>
+    </linearGradient>
+    <linearGradient id="thinkingBand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5DC8C1" stop-opacity="0.11"/>
+      <stop offset="55%" stop-color="#5DC8C1" stop-opacity="0.19"/>
+      <stop offset="88%" stop-color="#5DC8C1" stop-opacity="0.44"/>
+      <stop offset="100%" stop-color="#5DC8C1" stop-opacity="0.62"/>
+    </linearGradient>
+    <radialGradient id="listeningGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#5DC8C1" stop-opacity="0.30"/>
+      <stop offset="60%" stop-color="#5DC8C1" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#5DC8C1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="capShadow" x="-30%" y="-30%" width="160%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1A1D22" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="760" height="240" fill="url(#bg)"/>
+
+  <!-- header -->
+  <text x="380" y="42" text-anchor="middle" font-size="14" font-weight="600" fill="#1A1D22" letter-spacing="0.4">VOICE CAPSULE</text>
+  <text x="380" y="62" text-anchor="middle" font-size="12" fill="#6B6256">Floating overlay that follows the recording lifecycle</text>
+
+  <!-- ─── IDLE (60×33) ─────────────────────────────────────── -->
+  <g filter="url(#capShadow)">
+    <rect x="74" y="100" width="60" height="33" rx="16.5" fill="#1A1D22" stroke="#ECE7D8" stroke-opacity="0.10" stroke-width="1.5"/>
+    <circle cx="104" cy="116.5" r="3" fill="#ECE7D8" fill-opacity="0.55"/>
+  </g>
+  <text x="104" y="170" text-anchor="middle" font-size="12" font-weight="600" fill="#1A1D22">Idle</text>
+  <text x="104" y="188" text-anchor="middle" font-size="10.5" fill="#7A7164">Hotkey ready</text>
+
+  <!-- ─── LISTENING (108×33) — recording in progress ───────── -->
+  <ellipse cx="262" cy="116.5" rx="86" ry="40" fill="url(#listeningGlow)"/>
+  <g filter="url(#capShadow)">
+    <rect x="208" y="100" width="108" height="33" rx="16.5" fill="#1A1D22" stroke="#ECE7D8" stroke-opacity="0.10" stroke-width="1.5"/>
+    <!-- 14 wave bars, profile = [.48,.74,1,.62,.36,.86,.56,.95,.66,.5,.78,.4,.68,.52] -->
+    <g fill="#5DC8C1">
+      <rect x="235" y="112.18" width="2" height="8.64"  rx="1"/>
+      <rect x="239" y="109.84" width="2" height="13.32" rx="1"/>
+      <rect x="243" y="107.50" width="2" height="18.00" rx="1"/>
+      <rect x="247" y="110.92" width="2" height="11.16" rx="1"/>
+      <rect x="251" y="113.26" width="2" height="6.48"  rx="1"/>
+      <rect x="255" y="108.76" width="2" height="15.48" rx="1"/>
+      <rect x="259" y="111.46" width="2" height="10.08" rx="1"/>
+      <rect x="263" y="107.95" width="2" height="17.10" rx="1"/>
+      <rect x="267" y="110.56" width="2" height="11.88" rx="1"/>
+      <rect x="271" y="112.00" width="2" height="9.00"  rx="1"/>
+      <rect x="275" y="109.48" width="2" height="14.04" rx="1"/>
+      <rect x="279" y="112.90" width="2" height="7.20"  rx="1"/>
+      <rect x="283" y="110.38" width="2" height="12.24" rx="1"/>
+      <rect x="287" y="111.82" width="2" height="9.36"  rx="1"/>
+    </g>
+    <!-- live indicator dot -->
+    <circle cx="304" cy="106" r="2.4" fill="#5DC8C1">
+      <animate attributeName="opacity" values="1;0.35;1" dur="1.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <text x="262" y="170" text-anchor="middle" font-size="12" font-weight="600" fill="#1A1D22">Listening</text>
+  <text x="262" y="188" text-anchor="middle" font-size="10.5" fill="#7A7164">Capturing audio · live waveform</text>
+
+  <!-- ─── THINKING (108×33) ────────────────────────────────── -->
+  <g filter="url(#capShadow)">
+    <rect x="390" y="100" width="108" height="33" rx="16.5" fill="#1A1D22" stroke="#ECE7D8" stroke-opacity="0.10" stroke-width="1.5"/>
+    <!-- progress band (clipped to pill via clip-path) -->
+    <clipPath id="thinkingClip">
+      <rect x="390" y="100" width="108" height="33" rx="16.5"/>
+    </clipPath>
+    <rect x="390" y="100" width="108" height="33" fill="url(#thinkingBand)" clip-path="url(#thinkingClip)"/>
+    <!-- 3 dots -->
+    <g fill="#ECE7D8" fill-opacity="0.85">
+      <circle cx="435.5" cy="116.5" r="1.75"/>
+      <circle cx="444"   cy="116.5" r="1.75"/>
+      <circle cx="452.5" cy="116.5" r="1.75"/>
+    </g>
+  </g>
+  <text x="444" y="170" text-anchor="middle" font-size="12" font-weight="600" fill="#1A1D22">Thinking</text>
+  <text x="444" y="188" text-anchor="middle" font-size="10.5" fill="#7A7164">Polishing transcript</text>
+
+  <!-- ─── ERROR (116×33) ───────────────────────────────────── -->
+  <g filter="url(#capShadow)">
+    <rect x="572" y="100" width="116" height="33" rx="16.5" fill="#1A1D22" stroke="#ECE7D8" stroke-opacity="0.10" stroke-width="1.5"/>
+    <circle cx="596.5" cy="116.5" r="2.5" fill="#C93B3B"/>
+    <text x="606" y="120.5" font-size="12.5" font-style="italic" fill="#C93B3B">Not heard</text>
+  </g>
+  <text x="630" y="170" text-anchor="middle" font-size="12" font-weight="600" fill="#1A1D22">Error</text>
+  <text x="630" y="188" text-anchor="middle" font-size="10.5" fill="#7A7164">Auto-resets shortly</text>
+
+  <!-- footer hint -->
+  <text x="380" y="220" text-anchor="middle" font-size="10" fill="#9B9078">Pinned 1px above the dock · 33px tall · widens to fit content</text>
+</svg>
