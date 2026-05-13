@@ -91,7 +91,7 @@ If you'd rather build from source, see [Development](#development) below.
 
 ### Transcription
 
-- **Omni-model providers** — Mimo and Doubao Ark backends out of the box; one request carries audio + prompt + hot-words
+- **Omni-model providers** — Mimo, Doubao Ark, and Qianwen (DashScope) out of the box; one request carries audio + prompt + hot-words. Recommended models: `qwen3.5-omni-plus` (Qianwen) and `doubao-seed-2-0-lite-260428` (Doubao Ark)
 - **Modes** — per-mode system prompts (Default, Translate, and your own) tailor the model's output
 - **Dictionary / hot words** — boost recognition for domain-specific terms
 
@@ -193,7 +193,7 @@ If Soto has been useful to you, you're welcome to buy a coffee on [Ko-fi](https:
 
 - **Inspiration**: [type4me](https://github.com/joewongjc/type4me) by [@joewongjc](https://github.com/joewongjc) — the original macOS voice-input app written in SwiftUI. We owe the core product design to type4me: hotkey-driven sessions, mode-based prompts, dictionary / hot words, and local history. If you're on macOS only, please also check out the upstream project.
 - **Runtime**: [Tauri](https://tauri.app), [Svelte](https://svelte.dev), [Rust](https://www.rust-lang.org)
-- **Providers**: [Mimo](https://mimo.cn), [Doubao Ark](https://www.volcengine.com/product/ark)
+- **Providers**: [Mimo](https://mimo.cn), [Doubao Ark](https://www.volcengine.com/product/ark), [Qianwen / DashScope](https://dashscope.aliyun.com)
 
 ## License
 
