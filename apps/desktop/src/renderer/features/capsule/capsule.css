@@ -1,0 +1,475 @@
+/* Capsule visual design — a compact near-black flat-glass instrument:
+ * flat hairline edge (one uniform 1px inset ring — no gradients, no luminance
+ * variants, no top-lit bevels) over solid fill + tight shadow, tiny accent-led
+ * state feedback, and no notification text inside the pill. */
+
+:root {
+  --soto-ui-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+    "Segoe UI", system-ui, sans-serif;
+  /* Uniform 1px hairline shared by the pill AND the panel (capsulePanel.css
+   * reads it too — both sheets load in this window). Applied as an INSET
+   * box-shadow ring so it never reflows content or grows the strip's 32px
+   * arithmetic. Flat: equal alpha on all sides, no gradients. */
+  --voice-capsule-hairline: rgba(255, 255, 255, 0.12);
+}
+
+/* The capsule window is frameless + transparent; let the pill float. */
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* The capsule is pure chrome — nothing here is selectable text, and the
+ * WebView must never show a long-press link-preview callout. */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* The capsule window is an enlarged transparent, click-through overlay; the pill
+ * stays anchored near the bottom and the Panel (when present) stacks above it. */
+.capsule-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  transform-origin: bottom center;
+}
+
+.voice-capsule {
+  --voice-capsule-accent: #5dc8c1;
+  --voice-capsule-mode-translate: #8f9bff;
+  --voice-capsule-surface: rgb(29, 26, 26);
+  --voice-capsule-error: #ef6b6b;
+  --voice-capsule-idle-dot: rgba(255, 255, 255, 0.58);
+  --voice-capsule-thinking-dot: rgba(255, 255, 255, 0.86);
+  --voice-capsule-thinking-blend: screen;
+  --voice-capsule-thinking-opacity: 0.6;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--voice-capsule-width);
+  height: 36px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--voice-capsule-surface);
+  border: none;
+  /* Hairline ring + smaller-surface shadow (lighter than the panel's —
+   * adaptive hierarchy: larger surfaces cast deeper shadows). */
+  box-shadow: inset 0 0 0 1px var(--voice-capsule-hairline),
+    0 6px 16px rgba(0, 0, 0, 0.36), 0 1px 4px rgba(0, 0, 0, 0.24);
+  transition: width 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--soto-ui-sans);
+  line-height: 1;
+  vertical-align: middle;
+  transform-origin: bottom center;
+}
+
+.voice-capsule-idle-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--voice-capsule-idle-dot);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.16);
+  animation: voiceCapsuleFaceIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both,
+    voiceCapsuleIdleBreath 2.4s ease-in-out 180ms infinite;
+}
+
+.voice-capsule-wave {
+  /* First-paint resting scale only; the rAF loop writes each bar's inline
+   * transform from the first frame on (asymmetric envelope + micro-jitter in
+   * stepWaveBars — JS owns ALL wave motion now). */
+  --voice-capsule-wave-scale: 0.26;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  /* Wave occupies a touch more of the 36px pill (was 18px) so the bars read a
+   * hair taller; peak bar = 20px leaves ~8px clearance top/bottom. */
+  height: 20px;
+  animation: voiceCapsuleFadeIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.voice-capsule-wave-bar {
+  width: 2px;
+  height: var(--voice-capsule-wave-bar-height);
+  border-radius: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), var(--voice-capsule-accent));
+  box-shadow: 0 0 7px rgba(93, 200, 193, 0.16);
+  transform-origin: center;
+  transform: scaleY(var(--voice-capsule-wave-scale));
+  /* No CSS smoothing: the JS envelope writes ~60fps and any transition here
+   * would double-smooth into exactly the laggy feel this replaced. */
+  transition: none;
+  will-change: transform;
+}
+
+.voice-capsule-thinking-track {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  animation: voiceCapsuleFaceIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The progress fill — Typeless-verified mechanism: ONE persistent element
+ * (spanning thinking AND success, mounted at the pill level, never remounted
+ * by face swaps) whose WIDTH grows from the left under a JS fast-then-slow
+ * curve (80% at 1s, asymptotic at 99%); success snaps the same element to
+ * 100% over 100ms linear. A FLAT fill — no gradient, no leading cap, no
+ * transform: a sliding textured slab read as a floating ellipse, and a bright
+ * leading edge clipped by the pill cap read as a backwards half-circle. The
+ * track's overflow+radius shapes the ends. Width/transition are written
+ * inline by CapsuleMeter. */
+.voice-capsule-thinking-band {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  /* Gentle left-dim → front-bright ramp for depth. Safe with width-grow: the
+   * gradient is anchored to the band's left edge and STRETCHES with it (no
+   * traveling texture), the dim end sits at the pill's left cap (no bright
+   * backwards half-circle), and the shallow slope keeps small widths from
+   * reading as a hot blob (verified across 8–100% in the repro). */
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--voice-capsule-accent) 24%, transparent) 0%,
+    color-mix(in srgb, var(--voice-capsule-accent) 36%, transparent) 70%,
+    color-mix(in srgb, var(--voice-capsule-accent) 48%, white 4%) 100%
+  );
+  mix-blend-mode: var(--voice-capsule-thinking-blend);
+  opacity: var(--voice-capsule-thinking-opacity);
+}
+
+.voice-capsule-thinking-dots {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  animation: voiceCapsuleFaceIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.voice-capsule-thinking-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--voice-capsule-thinking-dot);
+  animation: voiceCapsuleThinkingDot 1.35s ease-in-out var(--voice-capsule-thinking-dot-delay)
+    infinite;
+}
+
+.voice-capsule-check {
+  position: relative;
+  display: inline-flex;
+  color: var(--voice-capsule-accent);
+  /* 120ms delay: the check pops right after the band's 100ms snap to 100%. */
+  animation: voiceCapsuleCheckPop 180ms cubic-bezier(0.34, 1.56, 0.64, 1) 120ms both;
+}
+
+.voice-capsule-error-glyph {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--voice-capsule-error);
+  text-shadow: 0 0 12px rgba(239, 107, 107, 0.32);
+  animation: voiceCapsuleFaceIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Error edge — a SEMANTIC ring: the red REPLACES the neutral hairline (never
+ * stacks) with identical inset geometry, so neutral→error doesn't jump the
+ * outline by a pixel. The pill carries no words, so the glyph + shake get a
+ * third peripheral channel. The panel error card gets NO ring — it has words
+ * + the dot. */
+.voice-capsule[data-state="error"] {
+  box-shadow: inset 0 0 0 1px rgba(239, 107, 107, 0.55),
+    0 0 12px rgba(239, 107, 107, 0.16),
+    0 6px 16px rgba(0, 0, 0, 0.36), 0 1px 4px rgba(0, 0, 0, 0.24);
+  animation: voiceCapsuleShake 240ms ease-in-out;
+}
+
+.voice-capsule-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+  animation: voiceCapsuleFadeIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.voice-capsule[data-mode="translate"] .voice-capsule-mode-badge {
+  color: var(--voice-capsule-mode-translate);
+}
+
+.voice-capsule[data-mode="translate"] .voice-capsule-thinking-band {
+  --voice-capsule-accent: var(--voice-capsule-mode-translate);
+}
+
+.voice-capsule-mode-label {
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  animation: voiceCapsuleFadeIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both,
+    voiceCapsuleLabelOut 200ms ease 1400ms forwards;
+}
+
+.voice-capsule-mode-glyph-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.voice-capsule-translate-swap {
+  position: relative;
+  width: 22px;
+  height: 14px;
+}
+
+.voice-capsule-translate-swap b {
+  position: absolute;
+  top: 0;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.voice-capsule-translate-swap b:first-child {
+  animation: voiceCapsuleSwapA 2.4s ease-in-out infinite;
+}
+
+.voice-capsule-translate-swap b:last-child {
+  animation: voiceCapsuleSwapB 2.4s ease-in-out infinite;
+}
+
+.voice-capsule-face-exit {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: voiceCapsuleFaceOut 100ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.voice-capsule[data-handoff="true"] .voice-capsule-idle-dot,
+.voice-capsule[data-handoff="true"] .voice-capsule-wave,
+.voice-capsule[data-handoff="true"] .voice-capsule-thinking-dots,
+.voice-capsule[data-handoff="true"] .voice-capsule-error-glyph {
+  animation-delay: 60ms;
+}
+
+@keyframes voiceCapsuleFaceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(2px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes voiceCapsuleFaceOut {
+  to {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.94);
+  }
+}
+
+@keyframes voiceCapsuleLabelOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes voiceCapsuleSwapA {
+  0%,
+  40% {
+    transform: translateX(0);
+    opacity: 0.9;
+  }
+  50%,
+  90% {
+    transform: translateX(11px);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0.9;
+  }
+}
+
+@keyframes voiceCapsuleSwapB {
+  0%,
+  40% {
+    transform: translateX(11px);
+    opacity: 0.45;
+  }
+  50%,
+  90% {
+    transform: translateX(0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(11px);
+    opacity: 0.45;
+  }
+}
+
+@keyframes voiceCapsuleFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes voiceCapsuleIdleBreath {
+  0%,
+  100% {
+    opacity: 0.52;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+
+@keyframes voiceCapsuleThinkingDot {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes voiceCapsuleCheckPop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes voiceCapsuleShake {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  25% {
+    translate: -2px 0;
+  }
+  50% {
+    translate: 2px 0;
+  }
+  75% {
+    translate: -1px 0;
+  }
+}
+
+/* Window-edge choreography (spec §4/§5): the pill rises in from the bottom
+ * edge on reveal and the whole stack sinks back out before win.hide(). The
+ * exit duration is set inline (--capsule-exit-ms) from the will-hide plan. */
+[data-entering] .voice-capsule {
+  animation: voiceCapsuleEnter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.capsule-stack[data-exit="sink"] {
+  animation: voiceCapsuleExitSink var(--capsule-exit-ms, 180ms)
+    cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.capsule-stack[data-exit="fast"] {
+  animation: voiceCapsuleExitFast var(--capsule-exit-ms, 120ms)
+    cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes voiceCapsuleEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes voiceCapsuleExitSink {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+
+@keyframes voiceCapsuleExitFast {
+  to {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+/* Honor the OS Reduce Motion setting. The capsule does not import styles.css,
+ * so it carries its own guard. Loops are removed; static faces remain legible:
+ * the idle dot and thinking dots rest at base opacity, the thinking band rests
+ * at its base 84% parked transform, and the wave bars render the latest level
+ * as discrete steps with no transition (see CapsuleMeter's reduced-motion
+ * interval; `transition: none` here also zeroes the diffusion delay). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .voice-capsule-idle-dot,
+  .voice-capsule-thinking-dot {
+    animation: none !important;
+  }
+
+  /* The band is JS-stepped (500ms readout); the 100ms success snap collapses
+   * to an instant width change. */
+  .voice-capsule-thinking-band {
+    transition: none !important;
+  }
+
+  .voice-capsule-wave-bar {
+    transition: none !important;
+  }
+
+  .voice-capsule-translate-swap b {
+    animation: none !important;
+  }
+}

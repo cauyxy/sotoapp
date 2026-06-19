@@ -1,0 +1,201 @@
+/* Window shell — material wash carries the source-list sidebar. The window edge
+ * is a crisp inner hairline; depth stays inside surfaces, never as an outer halo. */
+.app-shell {
+  min-height: 100vh;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--soto-bg-wash);
+  box-shadow: inset 0 0 0 1px var(--soto-rule);
+}
+
+.window-drag-region {
+  position: fixed;
+  top: 0;
+  left: 86px;
+  right: 138px;
+  height: var(--soto-chrome-top);
+  z-index: 20;
+  -webkit-app-region: drag;
+}
+
+.app-shell-content {
+  min-width: 0;
+  min-height: 0;
+  margin: var(--soto-chrome-top) var(--soto-space-3) var(--soto-space-3);
+  overflow: hidden;
+  background: var(--soto-bg);
+  border: 1px solid var(--soto-rule-soft);
+  border-radius: var(--soto-radius-card);
+  box-shadow: none;
+  -webkit-app-region: no-drag;
+}
+
+.app-shell-pane {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.app-shell-pane[hidden] { display: none; }
+
+.app-overlay-root {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.app-overlay-root .popover-panel {
+  pointer-events: auto;
+}
+
+.sidebar {
+  min-height: 0;
+  height: 100%;
+  /* 44px top padding clears the macOS traffic lights (windows.ts trafficLightPosition y=15 + button height) — keep ≥ 32px. */
+  padding: 44px var(--soto-space-3) var(--soto-space-3);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--soto-space-2);
+  /* left edge aligns with the nav icon column (sidebar pad 12 + nav pad 12); the
+   * 32px top drops the lockup onto the page-title band — chrome-top clears the
+   * title bar, then .page insets its content 32px (--soto-space-6), so matching
+   * that here makes the brand and the page header sit on the same row. */
+  margin: var(--soto-space-6) var(--soto-space-3) var(--soto-space-5);
+  -webkit-app-region: drag;
+}
+
+.sidebar-wordmark {
+  font-family: var(--soto-ui);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  color: var(--soto-mark-letter);
+}
+
+.soto-mark { display: inline-flex; }
+.soto-mark svg { display: block; }
+.soto-mark-tile { fill: var(--soto-mark-tile); }
+.soto-mark-letter { fill: var(--soto-mark-letter); }
+.soto-mark-accent { stroke: var(--soto-mark-accent); }
+
+.sidebar-spacer {
+  flex: 1;
+  -webkit-app-region: drag;
+}
+
+.nav-secondary {
+  margin-top: var(--soto-space-3);
+  padding: 0;
+}
+
+.util-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 4px;
+  margin-top: 12px;
+}
+
+.util-btn {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  flex: 0 0 26px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--soto-rule-soft);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--soto-ink-dim);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--soto-dur-morph) var(--soto-ease-enter),
+    color var(--soto-dur-morph) var(--soto-ease-enter);
+}
+
+.util-btn:hover {
+  background: var(--soto-rule-soft);
+  color: var(--soto-ink);
+}
+
+
+.nav {
+  display: grid;
+  gap: var(--soto-space-1);
+}
+
+.nav button {
+  width: 100%;
+  padding: var(--soto-space-2) var(--soto-space-3);
+  background: transparent;
+  border-color: transparent;
+  border-radius: var(--soto-radius-pill);
+  color: var(--soto-ink-soft);
+  font-size: var(--soto-text-body);
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--soto-space-2);
+}
+
+.nav button svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--soto-ink-dim);
+  transition: color var(--soto-dur-morph) var(--soto-ease-enter);
+}
+
+.nav button:hover {
+  background: var(--soto-rule-soft);
+  color: var(--soto-ink);
+}
+
+.nav button.active {
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+  font-weight: 500;
+}
+
+.nav button.active svg { color: var(--soto-accent-text); }
+
+.kicker {
+  color: var(--soto-ink-dim);
+  font-size: var(--soto-text-label);
+  letter-spacing: 0.6px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 32px var(--soto-page-pad-x) 36px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.page-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}

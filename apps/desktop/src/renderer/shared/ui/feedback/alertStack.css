@@ -1,0 +1,51 @@
+/* Alert-stack styles. In the old build these lived inside AlertStack.svelte's
+ * scoped <style>; React uses global CSS, so they are extracted here verbatim
+ * (same class names → identical look). */
+.alert-stack {
+  position: fixed;
+  bottom: calc(72px + 8px); /* above capsule pill */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  z-index: 1000;
+  pointer-events: none;
+}
+.alert {
+  position: relative;
+  pointer-events: all;
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-field);
+  padding: 10px 14px;
+  box-shadow: var(--soto-shadow-card);
+  font-size: var(--soto-text-body);
+  min-width: 240px;
+  max-width: 360px;
+}
+.alert-blocking {
+  border-color: var(--soto-error);
+}
+.alert-persistent {
+  border-color: var(--soto-accent);
+}
+.alert-temporary {
+  opacity: 0.95;
+}
+.alert-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.alert-body {
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-soft);
+}
+/* Context only: absolute top-right placement + colour. The shell
+ * (reset, inline-flex centring, the × glyph) comes from .icon-button. */
+.alert-dismiss {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  color: var(--soto-ink-dim);
+}

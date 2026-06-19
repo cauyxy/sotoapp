@@ -1,0 +1,123 @@
+/* Shared capsule-language primitives (spec §2.2/§2.3/§2.7).
+ * Components in shared/ui/primitives/ render these classes. */
+
+/* --- Signal dot: the universal status/identity vocabulary (5px) --- */
+.dot {
+  display: inline-block;
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  color: var(--soto-dot-neutral);
+  background: currentColor;
+  box-shadow: var(--soto-dot-glow);
+}
+.dot-ok { color: var(--soto-accent); }
+.dot-info { color: var(--soto-info); }
+.dot-warn { color: var(--soto-warn); }
+.dot-error { color: var(--soto-error); }
+.dot-neutral { color: var(--soto-dot-neutral); }
+/* Legacy alias kept for old call sites until Phase 4 migrates them. */
+.dot-idle { color: var(--soto-dot-neutral); }
+
+.dot-breathe {
+  animation: sotoDotBreathe 2.4s ease-in-out infinite;
+}
+@keyframes sotoDotBreathe {
+  0%, 100% { opacity: 0.52; }
+  50% { opacity: 0.92; }
+}
+/* Legacy pulse alias — maps onto the breath (sotoPulse removed). */
+.dot-pulse { animation: sotoDotBreathe 2.4s ease-in-out infinite; }
+
+/* --- Hotkey badge: mono pill, instrument-inlay surface (spec §2.1/§2.4) --- */
+.hotkey-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-inlay-surface);
+  box-shadow: inset 0 0 0 1px var(--soto-inlay-rule);
+  color: var(--soto-inlay-ink);
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-label);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* --- Toggle: 32×18 pill track, teal when on, white thumb (spec §2.3) --- */
+.toggle {
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-field);
+  transition: background var(--soto-dur-morph) var(--soto-ease-enter),
+    border-color var(--soto-dur-morph) var(--soto-ease-enter);
+}
+.toggle--on {
+  background: var(--soto-accent);
+  border-color: var(--soto-accent);
+}
+.toggle-thumb {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: left var(--soto-dur-morph) var(--soto-ease-enter);
+}
+.toggle--on .toggle-thumb { left: 18px; }
+.toggle:disabled { opacity: 0.45; }
+
+/* --- Shared row vocabulary (spec §2.7): dot + 13px primary (ellipsized)
+ * + right-aligned 11px meta + hover-revealed actions; rows separated by
+ * hairline-alpha rules inside one card --- */
+.row-list {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--soto-space-3);
+  min-width: 0;
+  padding: 9px 0;
+  /* Structural divider: the 12% rule — 6% rule-soft sits below perceptual
+   * threshold on warm paper (rule-soft stays for fills and soft seams). */
+  border-top: 1px solid var(--soto-rule);
+}
+.row:first-child { border-top: 0; }
+.row-primary {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.row-meta {
+  flex: none;
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+  white-space: nowrap;
+}
+.row-actions {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity var(--soto-dur-exit) var(--soto-ease-exit);
+}
+.row:hover .row-actions,
+.row:focus-within .row-actions { opacity: 1; }

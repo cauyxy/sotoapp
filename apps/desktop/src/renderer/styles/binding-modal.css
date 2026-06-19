@@ -1,0 +1,189 @@
+.binding-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--soto-scrim);
+  backdrop-filter: var(--soto-blur-backdrop);
+  -webkit-backdrop-filter: var(--soto-blur-backdrop);
+  animation: bindingScrimIn var(--soto-dur-enter) var(--soto-ease-enter);
+}
+
+.binding-modal {
+  width: 344px;
+  max-width: calc(100vw - 80px);
+  box-sizing: border-box;
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-card);
+  box-shadow: var(--soto-shadow-card);
+  padding: 20px 24px 16px;
+  font-family: var(--soto-ui);
+  animation: bindingModalIn var(--soto-dur-enter) var(--soto-ease-enter);
+  transform-origin: center;
+}
+
+.binding-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-bottom: 6px;
+}
+
+.binding-modal-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:lang(zh) .binding-modal-title {
+  font-size: var(--soto-text-label-cjk);
+}
+
+.binding-modal-close {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.binding-modal-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: 104px;
+  padding: 14px 0 10px;
+  text-align: center;
+}
+
+.binding-modal-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--soto-accent);
+  box-shadow: var(--soto-dot-glow);
+  animation: bindingDotPulse 1.4s var(--soto-ease-enter) infinite;
+}
+
+.binding-modal-prompt {
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+}
+
+.binding-modal-name {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: var(--soto-text-body);
+  font-weight: 500;
+  color: var(--soto-ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.binding-modal-hint,
+.binding-modal-error {
+  font-size: var(--soto-text-label);
+  line-height: 1.6;
+}
+
+.binding-modal-hint {
+  color: var(--soto-ink-dim);
+}
+
+.binding-modal-error {
+  color: var(--soto-error-text);
+}
+
+.binding-modal-conflict,
+.binding-modal-warn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+  max-width: 100%;
+  text-align: left;
+}
+
+.binding-modal-conflict svg,
+.binding-modal-warn svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.binding-modal-conflict-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.binding-modal-conflict {
+  font-size: var(--soto-text-body);
+  color: var(--soto-error-text);
+}
+
+.binding-modal-warn {
+  font-size: var(--soto-text-label);
+  color: var(--soto-warn-text);
+}
+
+.binding-modal-foot {
+  display: flex;
+  gap: var(--soto-space-2);
+  min-width: 0;
+  margin-top: var(--soto-space-4);
+}
+
+.binding-modal-foot[data-align="center"] {
+  justify-content: center;
+}
+
+.binding-modal-foot[data-align="end"] {
+  justify-content: flex-end;
+}
+
+.binding-modal-foot .button {
+  min-width: 0;
+}
+
+.binding-modal-foot .button-warn {
+  max-width: 200px;
+}
+
+.binding-modal-button-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.binding-modal-key-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--soto-space-2);
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+@keyframes bindingScrimIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bindingModalIn {
+  0% { opacity: 0; transform: translateY(8px) scale(0.985); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes bindingDotPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1); }
+}

@@ -1,0 +1,394 @@
+.modes-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.modes-card-stack {
+  display: grid;
+  gap: var(--soto-space-3);
+  min-height: 0;
+  margin-top: var(--soto-space-5);
+}
+
+.mode-card {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-card-item);
+  background: var(--soto-surface);
+  box-shadow: var(--soto-shadow-card);
+  overflow: visible;
+}
+
+.mode-card-toggle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--soto-space-3);
+  min-width: 0;
+  min-height: 58px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: var(--soto-radius-card-item);
+  background: transparent;
+  color: var(--soto-ink);
+  font: inherit;
+  text-align: left;
+}
+
+.mode-card-main-button:hover,
+.mode-card-hotkey-button:hover {
+  background: var(--soto-rule-soft);
+}
+
+.mode-card.is-expanded > .mode-card-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.mode-card-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 3px 8px;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-field);
+  color: var(--soto-ink-dim);
+  font-size: var(--soto-text-label);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.mode-card-identity[data-tone="ok"] {
+  border-color: rgba(var(--soto-accent-line-rgb), 0.35);
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+}
+
+.mode-card-identity[data-tone="info"] {
+  border-color: color-mix(in srgb, var(--soto-info) 35%, transparent);
+  color: var(--soto-info);
+}
+
+.mode-card-identity[data-tone="neutral"] {
+  color: var(--soto-ink-dim);
+}
+
+.mode-card-title {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--soto-ink);
+  font-size: var(--soto-text-body);
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mode-card-hotkey-button {
+  display: inline-flex;
+  justify-self: end;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  max-width: 240px;
+  min-height: 42px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--soto-radius-card-item);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  overflow: hidden;
+  text-align: left;
+}
+
+.mode-card-hotkey-empty {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border: 1px dashed var(--soto-rule);
+  border-radius: var(--soto-radius-card-item);
+  background: transparent;
+  color: var(--soto-ink-dim);
+  font-size: var(--soto-text-label);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.mode-card-hotkey-empty::before {
+  content: "+";
+  font-family: var(--soto-mono);
+  color: var(--soto-accent-text);
+}
+
+.mode-card-body {
+  display: grid;
+  gap: var(--soto-space-3);
+  min-width: 0;
+  padding: 0 14px 14px;
+}
+
+.mode-card-name-field {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--soto-space-3);
+  min-width: 0;
+  padding-top: var(--soto-space-3);
+}
+
+.mode-card-name-field > span {
+  color: var(--soto-ink-dim);
+  font-size: var(--soto-text-label);
+  line-height: 1.2;
+}
+
+.mode-card-name-field > input {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-field);
+  background: var(--soto-field);
+  box-shadow: var(--soto-field-inset);
+  color: var(--soto-ink);
+  font: inherit;
+}
+
+.mode-card-name-field > input::placeholder {
+  color: var(--soto-ink-dim);
+}
+
+.mode-card-body > .prompt-editor {
+  border-top: 1px solid var(--soto-rule-soft);
+}
+
+.mode-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 38px;
+  padding-top: var(--soto-space-1);
+}
+
+.mode-card-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--soto-error) 30%, transparent);
+  border-radius: var(--soto-radius-card-item);
+  background: transparent;
+  color: var(--soto-error-text);
+  font: inherit;
+  font-size: var(--soto-text-label);
+}
+
+.mode-card-delete:hover {
+  background: color-mix(in srgb, var(--soto-error) 10%, transparent);
+}
+
+.mode-card-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--soto-space-2);
+  min-width: 0;
+  min-height: 58px;
+  padding: 0 14px;
+  border: 1px dashed var(--soto-rule);
+  border-radius: var(--soto-radius-card-item);
+  background: var(--soto-surface);
+  box-shadow: var(--soto-shadow-card);
+  color: var(--soto-ink-dim);
+  font: inherit;
+  font-size: var(--soto-text-body);
+}
+
+.mode-card-add:hover {
+  border-color: var(--soto-accent);
+  background: var(--soto-rule-soft);
+  color: var(--soto-ink);
+}
+
+.mode-card-add-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-field);
+  color: var(--soto-accent-text);
+  font-family: var(--soto-mono);
+  line-height: 1;
+}
+
+.voice-card-head {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 0 8px 0 0;
+}
+
+.voice-card-head .mode-card-main-button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--soto-space-3);
+  min-width: 0;
+  min-height: 58px;
+  padding: 12px 6px 12px 14px;
+  border: 0;
+  border-radius: var(--soto-radius-card-item);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.voice-card-head .mode-card-main-button {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.key-combo {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-card-item);
+  background: var(--soto-field);
+  box-shadow: var(--soto-field-inset);
+}
+
+.key-combo-token {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.key-combo-plus {
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+}
+
+.key-cap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 24px;
+  height: 23px;
+  padding: 0 8px;
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule-soft);
+  border-radius: 5px;
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink);
+}
+
+.key-cap-lead {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 3px;
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-micro);
+  line-height: 1;
+}
+
+.key-combo-lg {
+  gap: 6px;
+  padding: 6px 9px;
+}
+
+.key-cap-lg {
+  height: 32px;
+  min-width: 40px;
+  padding: 0 12px;
+  border-radius: 7px;
+  font-size: 16px;
+}
+
+.key-cap-lg .key-cap-lead {
+  min-width: 18px;
+  height: 18px;
+  font-size: var(--soto-text-label);
+}
+
+.prompt-editor {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--soto-space-4) 0 0;
+}
+
+.prompt-editor-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: var(--soto-space-2);
+  border-bottom: 1px solid var(--soto-rule);
+  margin-bottom: var(--soto-space-3);
+}
+
+.prompt-editor-mark {
+  color: var(--soto-accent-text);
+}
+
+/* Decorative leading dash, rendered as presentational CSS content (the element
+   is aria-hidden) rather than an em dash in JSX text. */
+.prompt-editor-mark::before {
+  content: "—";
+}
+
+.prompt-editor-title {
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-title);
+  font-weight: 500;
+  color: var(--soto-ink);
+}
+
+.prompt-editor-spacer {
+  flex: 1;
+}
+
+/* Prompt textarea — field tier (spec §2.3): field surface, hairline, 9px
+   radius, 13px ink. */
+.prompt-editor-body {
+  min-height: 240px;
+  overflow: hidden;
+  resize: none;
+  background: var(--soto-field);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-field);
+  padding: 16px 18px;
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+  line-height: 1.7;
+  outline: none;
+}
+
+.meta-strip {
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--soto-rule-soft);
+}

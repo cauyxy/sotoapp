@@ -1,0 +1,139 @@
+/* Dictionary page — capsule-cloud layout (2026-06-18 redesign).
+ * Scaffolding primitives (.group, .page-scroll) come from panels.css /
+ * shell.css. The page is a left-packed cloud of word capsules; only
+ * page-specific styles live here. */
+
+/* The card never grows past the viewport — short clouds keep a natural height,
+ * long clouds scroll inside the card (.page-scroll). `.dictionary-page
+ * { overflow: hidden }` is required by scrollbarLayout.guard.test.ts. */
+.dictionary-page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.vocab-card {
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The cloud: add control + word capsules wrap left-to-right and fill each row;
+ * .page-scroll supplies the vertical scroll when the dictionary is long. */
+.vocab-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--soto-space-2);
+}
+
+/* A word capsule: dot + term + hover-revealed × in the filter-pill resting
+ * idiom (surface fill + hairline rule + pill radius). */
+.vocab-cap {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  padding: 4px 8px 4px 12px;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-surface);
+}
+
+/* Term text uses the dedicated vocabulary font; it is user data, so it stays
+ * selectable for copy and ellipsizes when very long. */
+.vocab-cap-term {
+  min-width: 0;
+  font-family: var(--soto-vocab-term);
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: text;
+}
+
+/* The delete × is hover/focus-revealed — a persistent × on every capsule would
+ * be noise across a large cloud; :focus-within keeps it keyboard-reachable. */
+.vocab-cap-del {
+  width: 18px;
+  height: 18px;
+  margin-right: -2px;
+  opacity: 0;
+  transition: opacity var(--soto-dur-exit) var(--soto-ease-exit);
+}
+.vocab-cap:hover .vocab-cap-del,
+.vocab-cap:focus-within .vocab-cap-del {
+  opacity: 1;
+}
+
+/* Add control — the first capsule. Resting: a dashed ghost pill. */
+.vocab-cap-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border: 1px dashed var(--soto-ink-mute);
+  border-radius: var(--soto-radius-pill);
+  background: transparent;
+  color: var(--soto-ink-soft);
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-body);
+  cursor: default;
+  transition:
+    color var(--soto-dur-morph) var(--soto-ease-enter),
+    border-color var(--soto-dur-morph) var(--soto-ease-enter);
+}
+.vocab-cap-add:hover {
+  color: var(--soto-ink);
+  border-color: var(--soto-accent);
+}
+.vocab-cap-add-glyph {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Active add control — a solid accent-edged input pill. */
+.vocab-cap-input {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--soto-accent);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-field);
+  box-shadow: var(--soto-field-inset);
+}
+.vocab-cap-input:focus-within {
+  outline: 1px solid var(--soto-accent);
+  outline-offset: 0;
+}
+.vocab-cap-input input {
+  width: 100%;
+  min-width: 120px;
+  padding: 4px 12px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--soto-ink);
+  font-family: var(--soto-vocab-term);
+  font-weight: 500;
+  font-size: var(--soto-text-body);
+}
+.vocab-cap-input input::placeholder {
+  color: var(--soto-ink-dim);
+}
+
+/* Empty-state message inside the card (filter/search yields nothing). */
+.vocab-empty {
+  width: 100%;
+  padding: 18px 0 4px;
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink-soft);
+}
+
+@media (max-width: 820px) {
+  .page-filter-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

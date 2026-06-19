@@ -1,0 +1,39 @@
+appId: org.sotoapp.sotoapp
+productName: Soto
+directories:
+  output: dist
+  buildResources: build
+npmRebuild: false
+files:
+  - out/**/*
+  - package.json
+mac:
+  icon: build/icon.icns
+  category: public.app-category.productivity
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.inherit.plist
+  hardenedRuntime: true
+  extraResources:
+    - from: ../../native/macos/.build/arm64-apple-macosx/release
+      to: native
+      filter:
+        - libSotoMacNative.dylib
+  target:
+    - dmg
+    - zip
+win:
+  icon: build/icon.ico
+  extraResources:
+    - from: ../../native/windows/bin/Release/net8.0/win-x64/publish
+      to: native
+      filter:
+        - SotoWinNative.dll
+  target:
+    - nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  shortcutName: Soto
+publish:
+  provider: generic
+  url: https://soto-installer.sotoapp.org/

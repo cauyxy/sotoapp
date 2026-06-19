@@ -1,2 +1,13 @@
 packages:
   - "apps/*"
+  - "packages/*"
+
+catalog:
+  "@types/better-sqlite3": ^7.6.13
+  better-sqlite3: ^11.10.0
+
+nodeVersion: 24.16.0
+engineStrict: true
+
+onlyBuiltDependencies:
+  - better-sqlite3

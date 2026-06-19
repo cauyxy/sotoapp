@@ -1,0 +1,134 @@
+label {
+  display: grid;
+  gap: var(--soto-space-2);
+  margin-top: var(--soto-space-4);
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--soto-space-3);
+}
+
+.inline-control {
+  display: flex;
+  align-items: center;
+  gap: var(--soto-space-2);
+}
+
+.inline-control input {
+  width: auto;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.save-strip {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.save-strip button {
+  min-width: 120px;
+  padding: var(--soto-space-2) var(--soto-space-3);
+}
+
+/* Settings rows — icon-list layout (settings redesign, variant D). Each row:
+   a leading icon tile (the .permission-tile language) + a label/description
+   stack + a fixed-width control column, so selects, segmented pills and toggles
+   all align to one right edge and one width. */
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: var(--soto-space-3);
+  padding: var(--soto-space-3) 0;
+  border-bottom: 1px solid var(--soto-rule-soft);
+}
+
+.setting-row:last-child {
+  border-bottom: 0;
+}
+
+.setting-row-tile {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--soto-radius-field);
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+}
+
+.setting-row-tile svg {
+  width: 18px;
+  height: 18px;
+}
+
+.setting-row-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.setting-row-label {
+  display: block;
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+  font-weight: 500;
+}
+
+.setting-row-desc {
+  display: block;
+  margin-top: 1px;
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+  line-height: 1.4;
+}
+
+.segmented {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-field);
+}
+
+.segmented button {
+  padding: 4px 12px;
+  border: 0;
+  border-radius: var(--soto-radius-pill);
+  background: transparent;
+  color: var(--soto-ink-soft);
+  font-family: var(--soto-ui-sans);
+  font-size: var(--soto-text-body);
+}
+
+.segmented button.active {
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+}
+
+.setting-row-control {
+  display: flex;
+  flex: 0 0 var(--soto-setting-control-w, 200px);
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--soto-space-2);
+}
+
+/* Controls fill the shared column so every row lines up on the same right edge. */
+.setting-row-control .select-root,
+.setting-row-control .segmented {
+  width: 100%;
+}
+
+.setting-row-control .segmented button {
+  flex: 1;
+}

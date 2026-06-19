@@ -1,0 +1,206 @@
+/* The Panel — a second capsule stacked above the pill.
+ * STRIP (no detail): single-row 999px capsule, whole strip click-dismisses.
+ * CARD (detail): 300px 16px-radius column card with a centered pill button.
+ * Flat hairline edge (macOS 27 flat-glass): solid fill + the shared 1px inset
+ * hairline ring + shadow. No real borders (the strip's 32px arithmetic depends
+ * on border-box staying border-free), no gradients, no top-lit bevels. */
+
+.capsule-panel {
+  --capsule-panel-accent: #8f9bff;
+  --capsule-panel-surface: rgb(29, 26, 26);
+
+  /* Root is the interaction surface: hover gate + (strip) click target. */
+  pointer-events: auto;
+  display: inline-flex;
+  flex-direction: column; /* column in BOTH shapes — morph never flips direction */
+  align-items: stretch;
+  box-sizing: border-box;
+  min-height: 32px;
+  max-width: 328px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--capsule-panel-surface);
+  box-shadow: inset 0 0 0 1px var(--voice-capsule-hairline),
+    0 8px 22px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.28);
+  color: #fff;
+  text-align: left;
+  transform-origin: bottom center;
+  animation: capsulePanelEnter 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  /* strip→card morph: the same notice escalating in place (e.g. slow @20s) */
+  transition: border-radius 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.capsule-panel[data-has-detail="true"] {
+  gap: 10px;
+  width: 300px;
+  max-width: 328px;
+  padding: 13px 16px 14px;
+  border-radius: 16px;
+}
+
+/* An exiting panel must never trap clicks meant for the app underneath. */
+.capsule-panel-exiting {
+  pointer-events: none;
+  animation: capsulePanelExit 160ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* Accents — brand tokens only. Teal appears solely as the success echo of the
+ * pill's own vocabulary; info/longform borrow the translate violet, and
+ * permission/command the command amber. */
+.capsule-panel-error {
+  --capsule-panel-accent: #ef6b6b;
+}
+.capsule-panel-permission {
+  --capsule-panel-accent: #e0a85e;
+}
+.capsule-panel-success {
+  --capsule-panel-accent: #5dc8c1;
+}
+.capsule-panel-info,
+.capsule-panel-longform {
+  --capsule-panel-accent: #8f9bff;
+}
+
+.capsule-panel-row {
+  display: flex;
+  align-items: center; /* strip: dot vertically centered on the line */
+  gap: 9px;
+}
+.capsule-panel[data-has-detail="true"] .capsule-panel-row {
+  align-items: flex-start;
+}
+
+.capsule-panel-dot {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--capsule-panel-accent);
+  box-shadow: 0 0 7px color-mix(in srgb, var(--capsule-panel-accent) 55%, transparent);
+}
+.capsule-panel[data-has-detail="true"] .capsule-panel-dot {
+  margin-top: 6px; /* optical center of the 18px first message line */
+}
+
+.capsule-panel-text {
+  min-width: 0;
+}
+
+.capsule-panel-message {
+  font-family: var(--soto-ui-sans, system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px; /* 18 + 7+7 padding = the 32px strip height */
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.capsule-panel[data-has-detail="true"] .capsule-panel-message {
+  font-weight: 500;
+  color: #fff;
+  white-space: normal;
+  overflow: visible;
+}
+
+.capsule-panel-detail {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--soto-ui-sans, system-ui, sans-serif);
+  font-size: 12px;
+  line-height: 16px;
+  /* Long-text notices wrap to a few lines instead of overflowing the window. */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  animation: capsulePanelDetailIn 120ms ease both; /* fades in on strip→card morph */
+}
+
+/* Card-only action buttons. Zero-edge: bg delta only, no border. */
+.capsule-panel-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.capsule-panel-primary,
+.capsule-panel-dismiss {
+  align-self: center;
+  padding: 5px 18px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--soto-ui-sans, system-ui, sans-serif);
+  font-size: 12px;
+  line-height: 16px;
+  cursor: default;
+  transition: background 160ms ease;
+}
+
+.capsule-panel-primary {
+  background: color-mix(in srgb, var(--capsule-panel-accent) 28%, rgba(255, 255, 255, 0.08));
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.capsule-panel-primary:hover {
+  background: color-mix(in srgb, var(--capsule-panel-accent) 38%, rgba(255, 255, 255, 0.12));
+}
+
+.capsule-panel-dismiss:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.capsule-panel-primary:active,
+.capsule-panel-dismiss:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.capsule-stack[data-departing] .capsule-panel {
+  opacity: 0.6;
+  transition: opacity 1.5s ease;
+}
+
+@keyframes capsulePanelDetailIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes capsulePanelEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes capsulePanelExit {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capsule-panel {
+    animation: none;
+    transition: none;
+  }
+
+  .capsule-panel-exiting {
+    animation-duration: 0.01ms !important;
+  }
+}

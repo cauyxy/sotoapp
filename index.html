@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; connect-src blob: *; script-src 'self' 'unsafe-eval' 'unsafe-inline' *; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' *; font-src 'self' data: *; img-src 'self' data: file: * blob:; media-src 'self' file:; frame-src * file:" />
+    <title>Cherry Studio</title>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+
+      #spinner {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+
+      #spinner img {
+        width: 100px;
+        border-radius: 50px;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-O6ujG3NL.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-DFUVUobX.js">
+    <link rel="modulepreload" crossorigin href="./assets/chunk-0ogMdkZ1.js">
+    <link rel="modulepreload" crossorigin href="./assets/dayjs.min-COl7sqdH.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-CGLB_Dcb.js">
+    <link rel="modulepreload" crossorigin href="./assets/stylis-BaN_JEhW.js">
+    <link rel="modulepreload" crossorigin href="./assets/jsx-runtime-CozKb_tc.js">
+    <link rel="modulepreload" crossorigin href="./assets/Component-BTqDIMwX.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-D2nIGoTi.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DEgK7TE6.js">
+    <link rel="modulepreload" crossorigin href="./assets/createLucideIcon-CSKnxNAP.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-right-y7cBEa7C.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-C8XsyH46.js">
+    <link rel="modulepreload" crossorigin href="./assets/download-891vuxn1.js">
+    <link rel="modulepreload" crossorigin href="./assets/image-CpeXotpn.js">
+    <link rel="modulepreload" crossorigin href="./assets/pencil-DcvhKFle.js">
+    <link rel="modulepreload" crossorigin href="./assets/refresh-cw-C4mWlqbQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/rotate-ccw-BK5PemHO.js">
+    <link rel="modulepreload" crossorigin href="./assets/trash-DzpJ146n.js">
+    <link rel="modulepreload" crossorigin href="./assets/ImageViewer-Z76gzncb.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BykHRatp.js">
+    <link rel="modulepreload" crossorigin href="./assets/purify.es-Csgug4lM.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-it-BpRXQVfS.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-up-right-DUJ1ty_8.js">
+    <link rel="modulepreload" crossorigin href="./assets/at-sign-Cf0eJgl5.js">
+    <link rel="modulepreload" crossorigin href="./assets/ban-TOI73o3x.js">
+    <link rel="modulepreload" crossorigin href="./assets/bot-BZs8sKl3.js">
+    <link rel="modulepreload" crossorigin href="./assets/bug-DAw335yZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/camera-BCKK4DPP.js">
+    <link rel="modulepreload" crossorigin href="./assets/check-SCAl7kW3.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-down-RDf2912l.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-left-CdkcTMxM.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-up-BCHB_IqK.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevrons-down-up-D4mKsrhI.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevrons-up-down-CP9ur-Tq.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-check-big-BjZCZPxR.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-check-DM51Z97d.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-pause-6THvSKBk.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-play-CRzr3Gjf.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-question-mark-C5711tW4.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-x-FL1W4J6t.js">
+    <link rel="modulepreload" crossorigin href="./assets/code-xml-B3dgX-5v.js">
+    <link rel="modulepreload" crossorigin href="./assets/code-5_vxcbSb.js">
+    <link rel="modulepreload" crossorigin href="./assets/columns-2-DpXPpA1k.js">
+    <link rel="modulepreload" crossorigin href="./assets/compass-Bu8Trigz.js">
+    <link rel="modulepreload" crossorigin href="./assets/corner-down-left-CEUaEkRv.js">
+    <link rel="modulepreload" crossorigin href="./assets/door-open-52iwj48H.js">
+    <link rel="modulepreload" crossorigin href="./assets/ellipsis-vertical-CBUSEl_E.js">
+    <link rel="modulepreload" crossorigin href="./assets/ellipsis-C9Jv6EF4.js">
+    <link rel="modulepreload" crossorigin href="./assets/eye-ZtWfwmTs.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-code-BxnfgHcv.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-pen-line-B1yuIzpF.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-pen-TONinewr.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-search-wytUVvgB.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-spreadsheet-wNdbODI6.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-text-DrZ1sRzE.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-open-EDUgh1KH.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-search-C1HIhdP_.js">
+    <link rel="modulepreload" crossorigin href="./assets/forward-BWLDfkBU.js">
+    <link rel="modulepreload" crossorigin href="./assets/globe-d1RYAWhI.js">
+    <link rel="modulepreload" crossorigin href="./assets/languages-BhBVsEJr.js">
+    <link rel="modulepreload" crossorigin href="./assets/lightbulb-B5evd6K5.js">
+    <link rel="modulepreload" crossorigin href="./assets/link-DGjl6boz.js">
+    <link rel="modulepreload" crossorigin href="./assets/list-checks-zQxAO87A.js">
+    <link rel="modulepreload" crossorigin href="./assets/list-todo-Cyzrlt5M.js">
+    <link rel="modulepreload" crossorigin href="./assets/loader-circle-BNCn0LA9.js">
+    <link rel="modulepreload" crossorigin href="./assets/maximize-2-DpVEzn0v.js">
+    <link rel="modulepreload" crossorigin href="./assets/menu-DrQT7w3v.js">
+    <link rel="modulepreload" crossorigin href="./assets/minimize-2-Dzp2jufs.js">
+    <link rel="modulepreload" crossorigin href="./assets/minus-DP6dnhS4.js">
+    <link rel="modulepreload" crossorigin href="./assets/notebook-pen-f1iXM1pb.js">
+    <link rel="modulepreload" crossorigin href="./assets/paperclip-Ds0OxOMF.js">
+    <link rel="modulepreload" crossorigin href="./assets/pencil-ruler-Bao6lC1L.js">
+    <link rel="modulepreload" crossorigin href="./assets/rows-2-B1buYt4M.js">
+    <link rel="modulepreload" crossorigin href="./assets/save-B-QwgSs8.js">
+    <link rel="modulepreload" crossorigin href="./assets/scan-BVYXUUfC.js">
+    <link rel="modulepreload" crossorigin href="./assets/search-C2o30Th3.js">
+    <link rel="modulepreload" crossorigin href="./assets/send-Bgbl8KNa.js">
+    <link rel="modulepreload" crossorigin href="./assets/settings-2-NJxNaTcE.js">
+    <link rel="modulepreload" crossorigin href="./assets/shield-check-BGaOqIJs.js">
+    <link rel="modulepreload" crossorigin href="./assets/sparkle-C8GW7NIL.js">
+    <link rel="modulepreload" crossorigin href="./assets/sparkles-BeriVeFo.js">
+    <link rel="modulepreload" crossorigin href="./assets/split-Mj4BsTlS.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-pen-DUdC789M.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-split-horizontal-Cl11PL3Q.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-Dz8_F0q8.js">
+    <link rel="modulepreload" crossorigin href="./assets/stethoscope-Bbu0tnMb.js">
+    <link rel="modulepreload" crossorigin href="./assets/terminal-ViXnqImt.js">
+    <link rel="modulepreload" crossorigin href="./assets/text-CSPxZkO1.js">
+    <link rel="modulepreload" crossorigin href="./assets/thumbs-up-Cvu1ney_.js">
+    <link rel="modulepreload" crossorigin href="./assets/triangle-alert-ClSO7FxK.js">
+    <link rel="modulepreload" crossorigin href="./assets/upload-DhtAg5HP.js">
+    <link rel="modulepreload" crossorigin href="./assets/wrap-text-DBaYtXpM.js">
+    <link rel="modulepreload" crossorigin href="./assets/wrench-2d8guz3B.js">
+    <link rel="modulepreload" crossorigin href="./assets/x--zERvOA1.js">
+    <link rel="modulepreload" crossorigin href="./assets/zoom-in-Ctk10njr.js">
+    <link rel="modulepreload" crossorigin href="./assets/zoom-out-Bw-rX0TR.js">
+    <link rel="modulepreload" crossorigin href="./assets/store-Bsm5gKN1.js">
+    <link rel="modulepreload" crossorigin href="./assets/client-DSVK6Xwp.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-Bs2ttcJJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/en_US-BucIHOzM.js">
+    <link rel="modulepreload" crossorigin href="./assets/LanguageSelect-Ds9LNLY0.js">
+    <link rel="modulepreload" crossorigin href="./assets/es-Dl4xu3Y1.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-arrow-left-hpR4oZrJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-square-De55RKa9.js">
+    <link rel="modulepreload" crossorigin href="./assets/pin-B0hnhMq8.js">
+    <link rel="modulepreload" crossorigin href="./assets/HomeWindow-pV2Y7u9b.js">
+    <link rel="modulepreload" crossorigin href="./assets/es-BUOnB56v.js">
+    <link rel="modulepreload" crossorigin href="./assets/CopyButton-CIivfJlB.js">
+    <link rel="modulepreload" crossorigin href="./assets/src-DCqOnvDB.js">
+    <link rel="modulepreload" crossorigin href="./assets/value-CaHPXKPH.js">
+    <link rel="modulepreload" crossorigin href="./assets/customParseFormat-Bg1WVuol.js">
+    <link rel="modulepreload" crossorigin href="./assets/DynamicIcon-C94RVkrb.js">
+    <link rel="modulepreload" crossorigin href="./assets/align-justify-zvRnK8Iw.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-down-a-z-pIuph0sp.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-down-narrow-wide-CTh0X_0v.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-down-Dx_FBB5D.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-left-D9YwHrHe.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-right-DsqCF6wY.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-up-a-z-tyuIQVhz.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-up-narrow-wide-DsIxtDCZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-up-wide-narrow-DeT9oTN1.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrow-up-D7OkW1KI.js">
+    <link rel="modulepreload" crossorigin href="./assets/badge-question-mark-C1TL2FE2.js">
+    <link rel="modulepreload" crossorigin href="./assets/bold-Duor21em.js">
+    <link rel="modulepreload" crossorigin href="./assets/bolt-D8i-7uXv.js">
+    <link rel="modulepreload" crossorigin href="./assets/book-De-XIDnK.js">
+    <link rel="modulepreload" crossorigin href="./assets/bot-message-square-C2D48qac.js">
+    <link rel="modulepreload" crossorigin href="./assets/brain-DS1qXfJ_.js">
+    <link rel="modulepreload" crossorigin href="./assets/briefcase-BHwbIx_k.js">
+    <link rel="modulepreload" crossorigin href="./assets/brush-cleaning-Ca0Ox0ae.js">
+    <link rel="modulepreload" crossorigin href="./assets/building-2-CyWM2k2P.js">
+    <link rel="modulepreload" crossorigin href="./assets/calculator-Bik7T0Uv.js">
+    <link rel="modulepreload" crossorigin href="./assets/calendar-clock-Rjo5SEAZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/calendar-HkXyt5gD.js">
+    <link rel="modulepreload" crossorigin href="./assets/case-sensitive-BlNMLkB3.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-arrow-up-BXsJINhi.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-chevron-down-DFTOi13u.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-chevron-right-DuYq_yZI.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-dollar-sign-BJDWqrog.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-1drSCdEx.js">
+    <link rel="modulepreload" crossorigin href="./assets/clock-X2IsU42o.js">
+    <link rel="modulepreload" crossorigin href="./assets/cloud-CUbck6oU.js">
+    <link rel="modulepreload" crossorigin href="./assets/command-ZGitHyBB.js">
+    <link rel="modulepreload" crossorigin href="./assets/credit-card-K-p4GTeA.js">
+    <link rel="modulepreload" crossorigin href="./assets/dices-DWHg0xBr.js">
+    <link rel="modulepreload" crossorigin href="./assets/eraser-D33jAleQ.js">
+    <link rel="modulepreload" crossorigin href="./assets/external-link-CupWqJhY.js">
+    <link rel="modulepreload" crossorigin href="./assets/eye-off-sC9EXvEj.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-image-miAKduQ6.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-plus-2-aJZRiYb-.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-plus-CjidXk__.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-question-mark-Z4wuoAMj.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-type-D3UywFBH.js">
+    <link rel="modulepreload" crossorigin href="./assets/file-B-fCHch4.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-clock-ByhZh7bT.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-cog-D6IFALXa.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-input-DMCMeM9Z.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-output-B_RSSMEl.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-pen-BXGbp50k.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-plus-CxAw0P4m.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-up-CEvpK1iL.js">
+    <link rel="modulepreload" crossorigin href="./assets/folder-CnEDjU3L.js">
+    <link rel="modulepreload" crossorigin href="./assets/funnel-DuYiC7rx.js">
+    <link rel="modulepreload" crossorigin href="./assets/github-svKqTSq8.js">
+    <link rel="modulepreload" crossorigin href="./assets/grip-vertical-PBk78oNV.js">
+    <link rel="modulepreload" crossorigin href="./assets/hammer-CLxH85wD.js">
+    <link rel="modulepreload" crossorigin href="./assets/hard-drive-BdSeBj9e.js">
+    <link rel="modulepreload" crossorigin href="./assets/hash-HCuL7F5a.js">
+    <link rel="modulepreload" crossorigin href="./assets/heading-1-DvI49R2W.js">
+    <link rel="modulepreload" crossorigin href="./assets/heading-2-B02idVoT.js">
+    <link rel="modulepreload" crossorigin href="./assets/heading-3-DAuYbiFB.js">
+    <link rel="modulepreload" crossorigin href="./assets/history-BVTolq-K.js">
+    <link rel="modulepreload" crossorigin href="./assets/house-DvjeNulW.js">
+    <link rel="modulepreload" crossorigin href="./assets/import-BZxfVNNf.js">
+    <link rel="modulepreload" crossorigin href="./assets/infinity-3y5KUFQq.js">
+    <link rel="modulepreload" crossorigin href="./assets/info-Cr_UmOvE.js">
+    <link rel="modulepreload" crossorigin href="./assets/italic-BNXeLzWC.js">
+    <link rel="modulepreload" crossorigin href="./assets/layout-grid-BfFYDWci.js">
+    <link rel="modulepreload" crossorigin href="./assets/list-minus-CabrTV8_.js">
+    <link rel="modulepreload" crossorigin href="./assets/list-ordered-CjG6Ca9b.js">
+    <link rel="modulepreload" crossorigin href="./assets/list-plus-DsyDagBH.js">
+    <link rel="modulepreload" crossorigin href="./assets/list-CmJeIf8r.js">
+    <link rel="modulepreload" crossorigin href="./assets/log-in-hDi0IuiP.js">
+    <link rel="modulepreload" crossorigin href="./assets/log-out-D3o85bjw.js">
+    <link rel="modulepreload" crossorigin href="./assets/mail-VBjkr_YU.js">
+    <link rel="modulepreload" crossorigin href="./assets/maximize-Ch6_2ZvD.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-square-diff-DryNkyA2.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-square-more-BFkdPCsS.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-square-quote-a4w4Aik6.js">
+    <link rel="modulepreload" crossorigin href="./assets/minimize-BgS-SdXu.js">
+    <link rel="modulepreload" crossorigin href="./assets/monitor-cog-3qMaYRUd.js">
+    <link rel="modulepreload" crossorigin href="./assets/monitor-speaker-CQM1shIq.js">
+    <link rel="modulepreload" crossorigin href="./assets/monitor-BPspfdvD.js">
+    <link rel="modulepreload" crossorigin href="./assets/moon-31dCaahf.js">
+    <link rel="modulepreload" crossorigin href="./assets/mouse-pointer-click-DZDjsdMv.js">
+    <link rel="modulepreload" crossorigin href="./assets/notebook-DOxI9qjc.js">
+    <link rel="modulepreload" crossorigin href="./assets/notepad-text-C3AoDpe2.js">
+    <link rel="modulepreload" crossorigin href="./assets/octagon-x-DMFLA9LV.js">
+    <link rel="modulepreload" crossorigin href="./assets/omega-CxVEC5mN.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-plus-BOXK-qZ3.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-oXLTie5n.js">
+    <link rel="modulepreload" crossorigin href="./assets/paintbrush-vertical-CL1KhXp-.js">
+    <link rel="modulepreload" crossorigin href="./assets/palette-i7jUTGVX.js">
+    <link rel="modulepreload" crossorigin href="./assets/panel-left-close-Bf245qNE.js">
+    <link rel="modulepreload" crossorigin href="./assets/panel-right-close-Uk4tutpf.js">
+    <link rel="modulepreload" crossorigin href="./assets/pause-515-xAzH.js">
+    <link rel="modulepreload" crossorigin href="./assets/pen-line-pmSSPgo9.js">
+    <link rel="modulepreload" crossorigin href="./assets/pen-DhSlp8vu.js">
+    <link rel="modulepreload" crossorigin href="./assets/picture-in-picture-2-B1Q5yx7H.js">
+    <link rel="modulepreload" crossorigin href="./assets/pin-off-FxfUt2nE.js">
+    <link rel="modulepreload" crossorigin href="./assets/play-BmIYMbCD.js">
+    <link rel="modulepreload" crossorigin href="./assets/plus-BVLc01VG.js">
+    <link rel="modulepreload" crossorigin href="./assets/pointer-CgMoRA_f.js">
+    <link rel="modulepreload" crossorigin href="./assets/puzzle-B-3H7_5V.js">
+    <link rel="modulepreload" crossorigin href="./assets/quote-DL4G4SCA.js">
+    <link rel="modulepreload" crossorigin href="./assets/radio-BwNX3646.js">
+    <link rel="modulepreload" crossorigin href="./assets/receipt-text-qAm4pE41.js">
+    <link rel="modulepreload" crossorigin href="./assets/redo-Dmu3VVpl.js">
+    <link rel="modulepreload" crossorigin href="./assets/refresh-ccw-sSWKStUh.js">
+    <link rel="modulepreload" crossorigin href="./assets/rocket-ChuiMTOG.js">
+    <link rel="modulepreload" crossorigin href="./assets/route-CvxBVljr.js">
+    <link rel="modulepreload" crossorigin href="./assets/rss-DpvcMJy1.js">
+    <link rel="modulepreload" crossorigin href="./assets/server-crash-Db5HMqSn.js">
+    <link rel="modulepreload" crossorigin href="./assets/server-off-BKgYiDW3.js">
+    <link rel="modulepreload" crossorigin href="./assets/server-DPXHNIhF.js">
+    <link rel="modulepreload" crossorigin href="./assets/settings-Biq10k3-.js">
+    <link rel="modulepreload" crossorigin href="./assets/shield-alert-NBt10cEL.js">
+    <link rel="modulepreload" crossorigin href="./assets/shopping-bag-B8nEFoUi.js">
+    <link rel="modulepreload" crossorigin href="./assets/smartphone-C8kiVuEI.js">
+    <link rel="modulepreload" crossorigin href="./assets/smile-Dmr4GcWA.js">
+    <link rel="modulepreload" crossorigin href="./assets/spell-check-B3G9tTz0.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-arrow-out-up-right-BYNYfJo4.js">
+    <link rel="modulepreload" crossorigin href="./assets/square-check-big-DcnO4L-2.js">
+    <link rel="modulepreload" crossorigin href="./assets/star-off-BOIHTNma.js">
+    <link rel="modulepreload" crossorigin href="./assets/star-BzDDW_7l.js">
+    <link rel="modulepreload" crossorigin href="./assets/strikethrough-Dajwsb_x.js">
+    <link rel="modulepreload" crossorigin href="./assets/sun-DwANEYrY.js">
+    <link rel="modulepreload" crossorigin href="./assets/table--1yigEpp.js">
+    <link rel="modulepreload" crossorigin href="./assets/tag-5gNnQRud.js">
+    <link rel="modulepreload" crossorigin href="./assets/tags-CyGANmZ3.js">
+    <link rel="modulepreload" crossorigin href="./assets/text-cursor-input-Viyg1R-f.js">
+    <link rel="modulepreload" crossorigin href="./assets/trash-2-CMS71xRF.js">
+    <link rel="modulepreload" crossorigin href="./assets/type-DWjQVTQh.js">
+    <link rel="modulepreload" crossorigin href="./assets/underline-AJvJB74t.js">
+    <link rel="modulepreload" crossorigin href="./assets/undo-tcAqyQkg.js">
+    <link rel="modulepreload" crossorigin href="./assets/user-pen-B1A57YLe.js">
+    <link rel="modulepreload" crossorigin href="./assets/user-round-minus-Bd63yaen.js">
+    <link rel="modulepreload" crossorigin href="./assets/user-round-plus-C38GRmwZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/user-round-BpI7qQzc.js">
+    <link rel="modulepreload" crossorigin href="./assets/user-bSnx_VWW.js">
+    <link rel="modulepreload" crossorigin href="./assets/video-DD-ootsr.js">
+    <link rel="modulepreload" crossorigin href="./assets/whole-word-Be0pEIMH.js">
+    <link rel="modulepreload" crossorigin href="./assets/zap-DE2a2tiz.js">
+    <link rel="modulepreload" crossorigin href="./assets/clipboard-check-B_kb8QaD.js">
+    <link rel="modulepreload" crossorigin href="./assets/clipboard-copy-Y9zlcBlM.js">
+    <link rel="modulepreload" crossorigin href="./assets/clipboard-x-DoTKkR1I.js">
+    <link rel="modulepreload" crossorigin href="./assets/message-square-heart-Bcz3gK_v.js">
+    <link rel="modulepreload" crossorigin href="./assets/SelectionToolbar-D1uAtctr.js">
+    <link rel="stylesheet" crossorigin href="./assets/store-EMpv-oyd.css">
+    <link rel="stylesheet" crossorigin href="./assets/LanguageSelect-tvy0aHB0.css">
+    <link rel="stylesheet" crossorigin href="./assets/SelectionToolbar-gsaU_gT0.css">
+    <link rel="stylesheet" crossorigin href="./assets/index-BCCUDHP-.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <div id="spinner">
+      <img src="./assets/logo-Bz2G6ABc.png" />
+    </div>
+    <script>
+      console.time('init')
+    </script>
+  </body>
+</html>

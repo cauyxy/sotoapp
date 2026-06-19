@@ -1,0 +1,32 @@
+.page-header {
+  display: grid;
+  gap: var(--soto-space-1);
+  margin-bottom: var(--soto-space-6);
+}
+
+.title-line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--soto-space-3);
+}
+
+.title-line h1 {
+  margin: 0;
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-title);
+  /* 600: the h1 anchors by weight now that section heads share the 15px step. */
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--soto-ink);
+}
+
+.title-line span {
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+}
+
+.page-header p {
+  margin: 0;
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink-soft);
+}

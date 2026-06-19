@@ -1,0 +1,128 @@
+/* ─── History: shared row vocabulary (redesign plan A10) ─────────────────────
+ * Layout: .history-design-* classes keep their bespoke grid (virtualized rows).
+ * Visual tokens snapped to the design-language ladder: 13px body / 11px meta /
+ * hairlines / no font-family overrides outside genuine mono (hotkey badges only,
+ * none in this sheet). */
+
+/* ── Page scaffold ──────────────────────────────────────────────────────────────
+ * Header + filter pills stay put; only the virtualized region scrolls. */
+
+.history-page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.history-scroll {
+  overflow-x: hidden;
+  padding-bottom: 36px;
+}
+
+/* ── Day-group container ────────────────────────────────────────────────────── */
+
+/* Virtualized items position absolutely; vertical rhythm comes from the row
+ * padding + the dynamic header margin, so the group itself carries no margin. */
+.history-design-group {
+  margin-bottom: 0;
+}
+
+/* ── Day-group header ───────────────────────────────────────────────────────── */
+
+.history-design-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--soto-space-3);
+  padding-bottom: var(--soto-space-2);
+  border-bottom: 1px solid var(--soto-rule);
+}
+
+.history-design-primary {
+  font-size: var(--soto-text-title); /* 15px, 500 — group title tier */
+  font-weight: 500;
+  color: var(--soto-ink);
+}
+
+.history-design-date {
+  font-size: var(--soto-text-label); /* 11px meta */
+  color: var(--soto-ink-dim);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Record row ─────────────────────────────────────────────────────────────── */
+
+.history-design-row {
+  padding: var(--soto-space-4) 0;
+  border-bottom: 1px solid var(--soto-rule);
+}
+
+/* Meta line: dot + time · duration · chars · mode | actions */
+.history-design-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--soto-space-2);
+  font-size: var(--soto-text-label); /* 11px */
+  color: var(--soto-ink-dim);
+}
+
+.history-design-mode {
+  color: var(--soto-ink-soft);
+}
+
+/* Row actions are hover-revealed (spec §2.7); keyboard focus reveals them too. */
+.history-design-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--soto-space-2);
+  opacity: 0;
+  transition: opacity var(--soto-dur-exit) var(--soto-ease-exit);
+}
+
+.history-design-row:hover .history-design-actions,
+.history-design-row:focus-within .history-design-actions {
+  opacity: 1;
+}
+
+/* ── Record body ────────────────────────────────────────────────────────────── */
+
+.history-design-polished {
+  max-inline-size: var(--soto-measure);
+  font-size: var(--soto-text-body); /* 13px primary text */
+  color: var(--soto-ink);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+/* Text-less sessions (cancelled / no speech / failed) show a dimmed status word.
+ * The word is the row's ONLY content — it rides the AA secondary rung. */
+.history-design-placeholder {
+  color: var(--soto-ink-soft);
+}
+
+.history-design-raw {
+  max-inline-size: var(--soto-measure);
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 2px solid var(--soto-accent-soft);
+  font-size: var(--soto-text-label); /* 11px meta */
+  color: var(--soto-ink-dim);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* "RAW" pill tag — pill radius per spec §2.3 */
+.history-design-raw-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule);
+  font-size: var(--soto-text-label); /* 11px */
+  color: var(--soto-ink-dim);
+  margin-right: 8px;
+  vertical-align: baseline;
+}

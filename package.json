@@ -1,26 +1,37 @@
 {
   "name": "sotoapp",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
   "license": "MIT",
   "packageManager": "pnpm@10.24.0",
+  "engines": {
+    "node": ">=24.16.0 <25",
+    "pnpm": "10.24.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24.16.0",
+      "onFail": "download"
+    }
+  },
   "scripts": {
     "dev": "pnpm --filter @soto/desktop dev",
     "build": "pnpm --filter @soto/desktop build",
-    "dev:site": "pnpm --filter @soto/site dev",
-    "build:site": "pnpm --filter @soto/site build",
-    "deploy:site": "pnpm --filter @soto/site deploy",
-    "test": "pnpm test:desktop && pnpm test:site && pnpm test:release-scripts",
-    "test:desktop": "pnpm --filter @soto/desktop test",
-    "test:site": "pnpm --filter @soto/site test",
+    "check": "pnpm --filter @soto/core typecheck && pnpm --filter @soto/ipc typecheck && pnpm --filter @soto/native-bridge typecheck && pnpm --filter @soto/desktop typecheck",
+    "test": "pnpm test:release-scripts && pnpm test:core && pnpm test:ipc && pnpm test:desktop",
     "test:release-scripts": "node --test scripts/*.test.mjs",
-    "tauri": "pnpm --filter @soto/desktop tauri",
-    "app:install-canonical": "node scripts/install-canonical-macos-app.mjs",
-    "app:reset-tcc": "node scripts/reset-canonical-tcc.mjs",
-    "build:mac:signed": "node scripts/macos-signed-build.mjs",
-    "publish:update": "node scripts/publish-updater-r2.mjs --wrangler-bin npx"
+    "test:core": "pnpm --filter @soto/core test",
+    "test:ipc": "pnpm --filter @soto/ipc test",
+    "test:desktop": "pnpm --filter @soto/desktop test",
+    "check:renderer-no-zod": "node scripts/check-renderer-no-zod.mjs",
+    "check:bundle-budget": "node scripts/check-renderer-bundle-budget.mjs",
+    "smoke:package:mac": "node scripts/smoke-package-macos.mjs",
+    "smoke:package:win": "node scripts/verify-windows-native-package.mjs",
+    "smoke:uia:win": "node scripts/smoke-windows-uia-capture.mjs",
+    "build:mac:signed": "node scripts/sign-macos.mjs"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.11.1"
+    "subset-font": "^2.5.0"
   }
 }

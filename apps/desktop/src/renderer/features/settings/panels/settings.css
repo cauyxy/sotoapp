@@ -1,0 +1,18 @@
+/* Page-local styles for Settings panels whose markup the old Svelte components
+   styled with component-scoped <style> blocks (the data clear status). These
+   classes are NOT in the shared styles.css, so we co-locate them here (imported
+   by SettingsPage) rather than editing the shared design-system file. */
+
+/* (.toggle* track/thumb rules moved to primitives.css; class names unchanged
+ * so NetworkPanel keeps working.) */
+
+/* (.setting-hint rule removed — hint copy moved to title="" attributes.) */
+
+.data-clear-status {
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+}
+
+.settings-section-body .permission-strip {
+  padding: var(--soto-space-3) 0;
+}

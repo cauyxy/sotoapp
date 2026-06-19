@@ -1,0 +1,77 @@
+/* Main-window design system — split out of the former monolithic styles.css.
+ * Imported once from main.tsx. The @import order below is the cascade order:
+ * tokens and the base reset come first, then the shell, then per-feature and
+ * per-page blocks, finishing with the global reduced-motion guard in
+ * toast-misc.css. The slices are contiguous and preserve the original cascade,
+ * so this index is behaviourally identical to the single-file stylesheet.
+ *
+ * The capsule window does NOT import this file — it has its own capsule.css. */
+
+/* Foundation: bundled @font-face (Source Serif 4 display), system CJK fallback,
+ * design tokens (:root), and light/dark theming. */
+@import "./tokens.css";
+
+/* Base reset, document/body chrome (system fonts, user-select, focus), and the
+ * generic button / input / pressed-state primitives. */
+@import "./base.css";
+
+/* Shared capsule-language primitives: signal dot, hotkey badge, toggle, and
+ * row vocabulary (SignalDot/StatusBadge render these). */
+@import "./primitives.css";
+
+/* Consolidated button variants (.button-primary/ghost/link) + the shared
+ * icon-button shell + the .button-icon combobox toggle. Sits right after base
+ * so it layers on the generic `button` reset. */
+@import "./buttons.css";
+
+/* Shared popover menus and custom Select controls. */
+@import "./popovers.css";
+
+/* App shell: grid layout, sidebar, brand, primary nav, kicker, page scroller. */
+@import "./shell.css";
+
+/* Shared PageHeader primitive: .page-header, .title-line, .page-header p. */
+@import "./page-header.css";
+
+/* Shared status-pill primitive: .status-badge + .status-badge-ok/warn/err. */
+@import "./status-badge.css";
+
+/* Home page: status row, today stats strip, recent list. */
+@import "./home.css";
+
+/* Shared surface chrome: panels, toolbars, text inputs, selects, focus rings. */
+@import "./panels.css";
+
+/* Modes page: trigger editor, key caps, prompt editor. */
+@import "./modes.css";
+@import "./binding-modal.css";
+
+/* Shared form primitives: labels, field grids, segmented controls, save strip. */
+@import "./forms.css";
+
+/* Filter row: segmented filter pills and the search field. */
+@import "./filters.css";
+
+/* Dictionary page: vocab cards + responsive grid. */
+@import "./dictionary.css";
+
+/* About + permission banner. */
+@import "./about-permission.css";
+
+/* Onboarding shell + permission strip. */
+@import "./onboarding.css";
+
+/* History page: rows, design groups, status dots. */
+@import "./history.css";
+
+/* 模型 page: config library — column-aligned read-only rows. */
+@import "./models.css";
+
+/* Shell 820px responsive rules (signal dots moved to primitives.css). */
+@import "./status-capsule.css";
+
+/* Settings flow + stats tiles. */
+@import "./settings-stats.css";
+
+/* Toasts, capsule click-through, and the global prefers-reduced-motion guard. */
+@import "./toast-misc.css";

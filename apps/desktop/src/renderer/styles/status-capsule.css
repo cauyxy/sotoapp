@@ -1,0 +1,41 @@
+/* (.dot* signal-dot rules moved to primitives.css; .button-primary to buttons.css.) */
+
+@media (max-width: 820px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .sidebar {
+    min-height: auto;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--soto-rule);
+  }
+
+  .hero-grid,
+  .field-grid,
+  .provider-editor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .provider-section-head,
+  .provider-editor-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .prov-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .prov-row-status,
+  .prov-row-chip,
+  .prov-row-actions {
+    grid-column: 2;
+  }
+
+  .provider-editor {
+    margin-left: 0;
+  }
+}

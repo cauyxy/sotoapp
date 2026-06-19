@@ -1,0 +1,11 @@
+/* Status badge: signal dot + 11px text (no pill background — quiet UI). */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-soft);
+}
+.status-badge-ok { color: var(--soto-ink-soft); }
+.status-badge-warn { color: var(--soto-ink-soft); }
+.status-badge-err { color: var(--soto-error-text); }

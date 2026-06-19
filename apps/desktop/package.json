@@ -1,29 +1,56 @@
 {
   "name": "@soto/desktop",
-  "version": "0.1.0",
+  "productName": "Soto",
+  "version": "0.2.1",
   "private": true,
-  "type": "module",
+  "author": {
+    "name": "Xinyu YANG",
+    "email": "cauyxy@gmail.com"
+  },
+  "description": "Soto native Electron desktop app. Pure logic lives in @soto/core.",
+  "main": "./out/main/index.js",
   "scripts": {
-    "dev": "node scripts/free-port.mjs 6782 && vite --host 127.0.0.1 --port 6782",
-    "build": "svelte-check --tsconfig ./tsconfig.json && vite build",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test": "vitest run",
-    "tauri": "tauri"
+    "dev": "pnpm run rebuild:electron && electron-vite dev",
+    "build": "electron-vite build",
+    "package": "pnpm run rebuild:electron && electron-vite build && electron-builder",
+    "package:smoke:mac": "pnpm run rebuild:electron && electron-vite build && electron-builder -c.compression=store",
+    "rebuild:electron": "electron-rebuild -o better-sqlite3",
+    "rebuild:node": "pnpm rebuild better-sqlite3",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json",
+    "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",
+    "depcruise": "depcruise src/main src/renderer --config .dependency-cruiser.cjs",
+    "gen:tray-icons": "node scripts/gen-tray-icons.mjs",
+    "test": "pnpm run rebuild:node && vitest run"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.11.0",
-    "@tauri-apps/plugin-opener": "2.5.4",
-    "@tauri-apps/plugin-process": "^2.3.1",
-    "@tauri-apps/plugin-updater": "^2.10.1",
-    "i18next": "^26.0.10",
-    "svelte": "^5.20.0"
+    "@soto/core": "workspace:*",
+    "@soto/ipc": "workspace:*",
+    "@soto/native-bridge": "workspace:*",
+    "@tanstack/react-virtual": "^3.13.26",
+    "better-sqlite3": "catalog:",
+    "drizzle-orm": "^0.36.4",
+    "koffi": "^3.0.2",
+    "ws": "^8.21.0",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^6.2.4",
-    "@types/node": "^24.12.3",
-    "svelte-check": "^4.3.0",
+    "@electron/rebuild": "^4.0.4",
+    "@types/better-sqlite3": "catalog:",
+    "@types/node": "^24.13.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "dependency-cruiser": "^16.10.4",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.34.5",
     "typescript": "^5.9.3",
-    "vite": "^7.2.7",
-    "vitest": "^4.0.16"
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
   }
 }

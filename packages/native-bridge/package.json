@@ -1,0 +1,22 @@
+{
+  "name": "@soto/native-bridge",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Soto native FFI bridge — koffi-backed C-ABI seam (Swift dylib on macOS, C# DLL on Windows) behind the NativeBridge / NativeFacilities ports. Layered on @soto/core.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  },
+  "dependencies": {
+    "@soto/core": "workspace:*",
+    "koffi": "^3.0.2"
+  }
+}

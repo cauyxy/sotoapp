@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+/* html/body/#root are kept transparent so the native window material wired in
+ * main/windows.ts (macOS under-window vibrancy / Windows mica) is the bottom
+ * layer the app paints over. The editorial cream/ink identity comes back as a
+ * translucent wash on .app-shell (see shell.css), not as a flat opaque body. */
+html,
+body,
+#root {
+  background: transparent;
+}
+
+body {
+  color: var(--soto-ink);
+  font-family: var(--soto-ui);
+  /* Mixed CJK/Latin needs more leading than the UA default (~1.2). Fixed-height
+   * controls pin their own height/line-height, so they are unaffected. */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  /* App chrome is not a web page: suppress text selection and the WebView's
+   * long-press link-preview callout everywhere by default. Genuine editable /
+   * content / transcript regions re-enable selection below. */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: default;
+}
+
+/* Re-enable text selection only where it is genuine content the user copies:
+ * native form fields, editable regions, and the transcript / history / recent
+ * bodies. (The prompt-editor body is a disabled read-only textarea, so it stays
+ * non-selectable, which is correct.) */
+input,
+textarea,
+[contenteditable],
+.recent-body,
+.history-design-polished,
+.history-design-raw {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+button,
+input,
+textarea,
+a,
+[role="button"] {
+  -webkit-app-region: no-drag;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+  background: var(--soto-field);
+  border: 1px solid var(--soto-rule);
+}
+
+button {
+  border-radius: var(--soto-radius-pill);
+}
+
+input,
+textarea {
+  border-radius: var(--soto-radius-field);
+  box-shadow: var(--soto-field-inset);
+}
+
+input::placeholder,
+textarea::placeholder {
+  /* Placeholders are informational, so they ride the meta rung, not mute. */
+  color: var(--soto-ink-dim);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Global keyboard focus ring — opaque teal (spec §2.3 family): the old 35% halo
+ * composited to only ~1.6:1 on paper and half the controls have transparent
+ * borders, so an outline carries focus everywhere. */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--soto-focus-ring-color);
+  outline-offset: 1px;
+  border-color: var(--soto-focus-ring-color);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Pressed (depressed) feedback so a click feels physically acknowledged, like a
+ * native control. Color/brightness only (no transform) so there is no motion to
+ * gate under prefers-reduced-motion; :not(:disabled) keeps disabled buttons inert. */
+button:active:not(:disabled) {
+  filter: brightness(0.97);
+}
+
+/* Transparent-background variants need a real pressed surface — brightness()
+ * on bare glyphs is imperceptible. (.button-primary:active lives in buttons.css.) */
+.util-btn:active:not(:disabled),
+.segmented button:active:not(:disabled),
+.button-ghost:active:not(:disabled),
+.button-link:active:not(:disabled),
+.nav button:active:not(.active),
+.row-action:active:not(:disabled) {
+  background: var(--soto-rule);
+}
+/* 11px hanzi is below comfortable stroke resolution (PingFang SC fills the em
+ * box); CJK label slots step to the 12px floor. Latin stays on the 11px ladder.
+ * (i18n/context.tsx keeps <html lang> in sync; :lang(zh) matches zh-CN.) */
+:lang(zh) .capability-tag,
+:lang(zh) .model-in-use-pill,
+:lang(zh) .mode-card-identity,
+:lang(zh) .mode-card-hotkey-empty,
+:lang(zh) .model-card-vendor,
+:lang(zh) .models-verified-age,
+:lang(zh) .history-design-mode,
+:lang(zh) .home-stat-label,
+:lang(zh) .setting-row-desc,
+:lang(zh) .status-badge {
+  font-size: var(--soto-text-label-cjk);
+}

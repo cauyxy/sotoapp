@@ -1,0 +1,89 @@
+.group,
+.editor-panel,
+.settings-panel {
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-card);
+  box-shadow: var(--soto-shadow-card);
+  padding: var(--soto-space-4) var(--soto-space-5);
+}
+
+.status-row,
+.toolbar,
+.meta-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--soto-space-3);
+}
+
+.pill {
+  padding: var(--soto-space-1) var(--soto-space-3);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  background: var(--soto-surface);
+  color: var(--soto-ink);
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-label); /* was 11.5px → snapped +0.5 */
+}
+
+.pill-button {
+  font-family: var(--soto-mono);
+}
+
+.text-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--soto-accent-text);
+  font-family: inherit;
+  font-size: inherit;
+}
+
+
+.group {
+  margin-top: var(--soto-space-5);
+}
+
+.group-title {
+  padding-bottom: var(--soto-space-2);
+  border-bottom: 1px solid var(--soto-rule);
+  font-size: var(--soto-text-title);
+  font-weight: 500;
+  color: var(--soto-ink);
+}
+
+.empty {
+  padding: 18px 0 4px;
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink-soft);
+}
+
+.toolbar {
+  margin-bottom: var(--soto-space-4);
+}
+
+.toolbar input,
+.editor-panel input,
+.group input,
+textarea {
+  width: 100%;
+  padding: var(--soto-space-2) var(--soto-space-3);
+  /* background and border intentionally omitted: base.css field tier applies */
+  font-family: var(--soto-ui-sans);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.toolbar button {
+  min-width: 130px;
+  padding: var(--soto-space-2) var(--soto-space-3);
+  font-family: var(--soto-ui-sans);
+}
+
+/* padding from shared card-tier block above */
+
+.meta-strip span {
+  color: var(--soto-ink-dim);
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-label);
+}
+

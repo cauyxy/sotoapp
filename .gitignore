@@ -21,17 +21,28 @@ pnpm-debug.log*
 npm-debug.log*
 *.log
 
-# ─── SvelteKit ───────────────────────────────────────────────────────────────
+# ─── Build output (electron-vite / site) ─────────────────────────────────────
 .svelte-kit/
 dist/
 build/
+out/
+!apps/desktop/build/
+!apps/desktop/build/entitlements.mac.plist
+!apps/desktop/build/entitlements.mac.inherit.plist
 
 # ─── Rust / Cargo ────────────────────────────────────────────────────────────
 target/
 
+# ─── Native platform builds ─────────────────────────────────────────────────
+native/macos/.build/
+native/macos/Sources/SotoMacNative/_generated/
+native/windows/bin/
+native/windows/obj/
+
 # ─── Tauri ───────────────────────────────────────────────────────────────────
 # Tauri generates platform-specific WiX / NSIS / Xcode project files here
 apps/desktop/src-tauri/gen/
+apps/desktop/src-tauri/tauri.conf.native-staging.json
 # Packaged app bundles produced by `tauri build`
 *.app
 *.dmg
@@ -48,6 +59,7 @@ coverage/
 .worktrees/
 .claude/
 .superpowers/
+tmp/
 
 # ─── Project-specific ────────────────────────────────────────────────────────
 signing-secrets/

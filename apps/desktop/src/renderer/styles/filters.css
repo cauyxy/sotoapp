@@ -1,0 +1,124 @@
+.page-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 16px;
+}
+
+.page-filter-pills {
+  display: inline-flex;
+  align-items: center;
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  padding: 4px;
+}
+
+.page-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--soto-ink-soft);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-pill);
+  padding: 4px 12px;
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-body);
+  cursor: default;
+  transition: background 0.15s;
+}
+
+.page-filter-pill.active {
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+  border-color: color-mix(in srgb, var(--soto-accent) 28%, transparent);
+}
+
+.page-filter-pill-count {
+  font-family: var(--soto-mono);
+  font-size: var(--soto-text-label); /* was 10.5px → snapped +0.5 */
+  color: var(--soto-ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-filter-pill.active .page-filter-pill-count {
+  color: var(--soto-ink-dim);
+}
+
+.word-mark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.word-mark-manual {
+  background: var(--soto-accent);
+}
+
+.word-mark-auto {
+  background: var(--soto-dot-neutral);
+}
+
+.page-filter-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  min-width: 32px;
+  flex-shrink: 0;
+}
+
+.page-filter-search-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule);
+  color: var(--soto-ink-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.page-filter-search-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 240px;
+  padding: 6px 14px;
+  background: var(--soto-field);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-field);
+  box-shadow: var(--soto-field-inset);
+}
+
+/* The inner input keeps outline:none; the surrounding field shows the teal
+ * hairline focus indicator (spec §2.3). */
+.page-filter-search-open:focus-within {
+  border-color: var(--soto-accent);
+  outline: 1px solid var(--soto-accent);
+  outline-offset: 0;
+}
+
+.page-filter-search-open input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+}
+
+/* Context only: colour + cursor. The shell (reset, inline-flex centring, the ×
+ * glyph) comes from .icon-button. */
+.page-filter-search-close {
+  cursor: default;
+  color: var(--soto-ink-dim);
+}
+

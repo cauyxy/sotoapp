@@ -1,0 +1,43 @@
+.settings-flow {
+  display: block;
+}
+
+.settings-flow-content {
+  display: grid;
+  gap: var(--soto-space-5);
+  max-width: 640px;
+  --soto-setting-control-w: 240px;
+}
+
+.settings-section {
+  scroll-margin-top: 24px;
+}
+
+.settings-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.settings-section-body {
+  background: var(--soto-surface);
+  border: 1px solid var(--soto-rule-soft);
+  border-radius: var(--soto-radius-card);
+  box-shadow: none;
+  padding: 0 var(--soto-space-4);
+}
+
+.settings-section-head h2 {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--soto-ui);
+  font-size: var(--soto-text-label);
+  font-weight: 500;
+  color: var(--soto-ink-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

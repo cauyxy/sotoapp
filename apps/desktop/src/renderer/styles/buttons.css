@@ -1,0 +1,141 @@
+/* Consolidated button variants + the shared icon-button shell.
+ *
+ * Registered right after base.css in index.css, so the generic `button` reset
+ * in base.css (border/radius/surface bg, :disabled, :active brightness, the
+ * :focus-visible ring) still applies underneath, and these variant rules layer
+ * on top — preserving the exact look each class had when it lived in its old
+ * per-feature sheet.
+ *
+ * Sources folded in here (so new pages reuse instead of copying button CSS):
+ *   .button-primary  — moved from status-capsule.css (+ its :active rule below)
+ *   .button-ghost    — moved from provider.css (was dead in TSX; kept as a variant)
+ *   .button-link     — the former .history-link (history.css), renamed
+ *   .icon-button*    — shared shell for the unified × close buttons
+ */
+
+/* Pill buttons (spec §2.3). Primary = teal ~15% fill + teal text + hairline;
+ * ghost = hairline + secondary ink; link = borderless. The waiting state is
+ * the capsule's width-grow fill: a teal band grows left-to-right under a
+ * fast-then-slow curve; success snaps it to 100%. */
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+  padding: 5px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--soto-radius-pill);
+  font-size: var(--soto-text-body);
+  font-weight: 500;
+  line-height: 1.4;
+  transition: background var(--soto-dur-morph) var(--soto-ease-enter),
+    color var(--soto-dur-morph) var(--soto-ease-enter),
+    border-color var(--soto-dur-morph) var(--soto-ease-enter);
+}
+.button-primary {
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+  border-color: color-mix(in srgb, var(--soto-accent) 28%, transparent);
+}
+.button-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--soto-accent) 22%, transparent);
+}
+.button-primary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--soto-accent) 30%, transparent);
+}
+.button-warn {
+  background: var(--soto-warn-soft);
+  color: var(--soto-warn-text);
+  border-color: color-mix(in srgb, var(--soto-warn) 28%, transparent);
+}
+.button-warn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--soto-warn) 22%, transparent);
+}
+.button-warn:active:not(:disabled) {
+  background: color-mix(in srgb, var(--soto-warn) 30%, transparent);
+}
+.button-ghost {
+  background: transparent;
+  color: var(--soto-ink-soft);
+  border-color: var(--soto-rule);
+}
+.button-ghost:hover:not(:disabled) {
+  color: var(--soto-ink);
+  background: var(--soto-rule-soft);
+}
+.button-link {
+  border-color: transparent;
+  background: transparent;
+  color: var(--soto-ink-dim);
+  padding: 5px 8px;
+}
+.button-link:hover:not(:disabled) { color: var(--soto-accent-text); }
+/* Disabled: opacity only where a FILL carries the signal; text-only variants get
+ * an explicit dim color so element opacity never stacks on translucent ink. */
+.button:disabled { opacity: 0.55; }
+.button-link:disabled,
+.button-ghost:disabled { color: var(--soto-ink-disabled); opacity: 1; }
+
+.button-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--soto-accent) 24%, transparent);
+  pointer-events: none;
+}
+.button-label { position: relative; }
+.button[data-progress="waiting"] { pointer-events: none; }
+.button[data-progress="waiting"] .button-fill {
+  animation: sotoButtonFill 9s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+.button[data-progress="success"] .button-fill {
+  width: 100%;
+  transition: width 100ms linear;
+}
+@keyframes sotoButtonFill {
+  0% { width: 0%; }
+  12% { width: 80%; }
+  100% { width: 96%; }
+}
+
+/* ── Icon-only buttons ─────────────────────────────────────────────────────
+ * `.icon-button` is the shared shell for the unified × close buttons
+ * (IconButton.tsx): a borderless transparent reset that centres the inline SVG
+ * glyph. Per-context classes (.alert-dismiss, .vocab-card-delete,
+ * .page-filter-search-close) keep their own position / colour / cursor /
+ * hover-reveal — only the reset + centring are shared here.
+ *
+ * NOTE (deviation from the original plan): the migrated close buttons were
+ * NEVER 32px — alert-dismiss and the search-close were sized intrinsically by
+ * their `×` glyph (≈15px), and only the vocab delete had an explicit 22px box.
+ * Forcing a 32px "md" would have visibly enlarged the alert/search controls and
+ * shifted the absolutely-positioned alert × off its top/right anchor. To
+ * preserve appearance, `md` hugs the 11px glyph (matching the old intrinsic
+ * footprint) and `sm` is the vocab 22px circle. */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  line-height: 1;
+}
+
+/* sm: the vocab-card delete — a 22px circle (the only close button with an
+ * explicit box). The hover-reveal / colour live in .vocab-card-delete. */
+.icon-button-sm {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--soto-radius-pill);
+}
+
+/* md: content-sized around the 11px glyph, matching the old intrinsic footprint
+ * of the alert / search close buttons (see NOTE above). */
+.icon-button-md {
+  /* no fixed box — hugs the glyph, as the old × char did */
+}
+

@@ -1,0 +1,87 @@
+/* 主页 — status row → today stats strip → recent card (2026-06-18 重设计).
+ * The page is a flow column; the recent card sits in the flow. */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--soto-space-4);
+}
+
+.home-status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--soto-space-2);
+  min-height: 24px;
+}
+
+.home-status-text {
+  font-size: var(--soto-text-body);
+  color: var(--soto-ink);
+}
+
+.home-blocker-fix { opacity: 1; }
+
+/* --- 今日统计 — promoted number strip (replaces the instrument inlay) --- */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--soto-surface);
+  border-radius: var(--soto-radius-card-item);
+  box-shadow: inset 0 0 0 1px var(--soto-rule);
+  padding: var(--soto-space-4) 0;
+}
+
+.home-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--soto-space-1);
+  text-align: center;
+}
+
+.home-stat + .home-stat {
+  border-left: 1px solid var(--soto-rule);
+}
+
+.home-stat-value {
+  font-family: var(--soto-numeric);
+  font-size: var(--soto-text-stat);
+  font-weight: 600;
+  color: var(--soto-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.home-stat-label {
+  font-size: var(--soto-text-label);
+  color: var(--soto-ink-dim);
+}
+
+/* --- Recent card: short preview in the page flow --- */
+.recent-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--soto-space-3);
+  padding-bottom: var(--soto-space-2);
+  border-bottom: 1px solid var(--soto-rule);
+}
+
+.recent-card-title {
+  font-size: var(--soto-text-title);
+  font-weight: 500;
+  color: var(--soto-ink);
+}
+
+.recent-card-view-all {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--soto-ink-dim);
+  font-size: var(--soto-text-label);
+}
+
+.recent-card-view-all:hover { color: var(--soto-accent-text); }

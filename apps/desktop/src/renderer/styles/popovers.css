@@ -1,0 +1,135 @@
+.popover-root {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+}
+
+.popover-panel {
+  position: fixed;
+  z-index: 90;
+  min-width: 180px;
+  max-width: min(360px, calc(100vw - 32px));
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px;
+  border: 1px solid var(--soto-rule);
+  border-radius: 8px;
+  background: var(--soto-surface);
+  box-shadow: var(--soto-shadow-card);
+  color: var(--soto-ink);
+}
+
+.menu-panel {
+  display: grid;
+  gap: 2px;
+}
+
+.menu-item,
+.select-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--soto-ink);
+  font: inherit;
+  font-size: var(--soto-text-body);
+  text-align: left;
+  cursor: default;
+}
+
+.menu-item {
+  gap: var(--soto-space-2);
+  padding: 7px 9px;
+}
+
+.menu-item:hover,
+.menu-item:focus-visible,
+.select-option:hover,
+.select-option:focus-visible {
+  background: var(--soto-field);
+}
+
+.menu-item:disabled,
+.select-option:disabled {
+  color: var(--soto-ink-disabled);
+  opacity: 1;
+}
+
+.menu-item-danger {
+  color: var(--soto-error-text);
+}
+
+.menu-item-icon {
+  display: inline-flex;
+  color: var(--soto-ink-dim);
+}
+
+.menu-item-label,
+.select-option-content {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.select-root {
+  width: 100%;
+}
+
+.select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--soto-space-2);
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  padding: var(--soto-space-2) 10px var(--soto-space-2) var(--soto-space-3);
+  border: 1px solid var(--soto-rule);
+  border-radius: var(--soto-radius-field);
+  background: var(--soto-field);
+  box-shadow: var(--soto-field-inset);
+  color: var(--soto-ink);
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.select-value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--soto-space-2);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-value-placeholder {
+  color: var(--soto-ink-dim);
+}
+
+.select-chevron {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--soto-ink-dim);
+}
+
+.select-panel {
+  width: max-content;
+  min-width: 100%;
+}
+
+.select-option {
+  justify-content: space-between;
+  gap: var(--soto-space-3);
+  padding: 7px 9px;
+}
+
+.select-option[aria-selected="true"] {
+  background: var(--soto-accent-soft);
+  color: var(--soto-accent-text);
+}
